@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { Grid, Row, Col, Navbar, Nav, NavItem, Jumbotron, Well, Button } from 'react-bootstrap';
+import React from 'react';
+import { Grid, Row, Col, Jumbotron, Well, Button } from 'react-bootstrap';
 import LoggedOutHeader from './shared/components/LoggedOutHeader';
+import Footer from './shared/components/Footer';
 
 const splash = (
     <Jumbotron>
@@ -11,11 +12,21 @@ const splash = (
 
 const welcome = (
     <Jumbotron>
+<<<<<<< HEAD
         <h2>Welcome home, listizens</h2>
         <p>
             Listopolis fosters a fast, flexible, and collaborative environment for creating and managing lists that
             lets you work on your own or with others.
         </p>
+=======
+        <Grid>
+            <h2>Welcome home, Listizens</h2>
+            <p>
+                Listopolis fosters a fast, flexible, and collaborative environment for creating and managing lists that
+                lets you work on your own or with others.
+            </p>
+        </Grid>
+>>>>>>> 18e8f912d9bee8a0bb17db9729600de9b770a093
     </Jumbotron>
 );
 
@@ -30,7 +41,7 @@ const who = (
             <Col xs={6} md={4}>
                 <h3>Individuals</h3>
                 <p>
-                    Use listopolis to create personal lists, whether you want to experiment with a new buzzfeed
+                    Use Listopolis to create personal lists, whether you want to experiment with a new buzzfeed
                     50 page slideshow or keep track of guests to your dinner party.
                 </p>
             </Col>
@@ -65,42 +76,17 @@ const signup = (
         </Well>
 );
 
-const footer = (
-    <Navbar>
-        <Nav pullLeft="true">
-            <Navbar.Text>© 2017 Listopolis, Inc.</Navbar.Text>
-            <NavItem disabled>Terms</NavItem>
-            <NavItem disabled>Privacy</NavItem>
-            <NavItem disabled>Security</NavItem>
-            <NavItem disabled>Status</NavItem>
-            <NavItem disabled>Help</NavItem>
-        </Nav>
-        <Nav pullRight="true">
-            <NavItem disabled>Contact Listopolis</NavItem>
-            <NavItem disabled>API</NavItem>
-            <NavItem disabled>Training</NavItem>
-            <NavItem disabled>Shop</NavItem>
-            <NavItem disabled>Blog</NavItem>
-            <NavItem disabled>About</NavItem>
-        </Nav>
-    </Navbar>
+const App = () => (
+    <div>
+        <LoggedOutHeader/>
+        <Grid fluid>
+        {splash}
+        {welcome}
+        {who}
+        {signup}
+        <Footer/>
+        </Grid>
+    </div>
 );
-
-class App extends Component {
-  render() {
-      return (
-          <div>
-              <LoggedOutHeader/>
-              <Grid fluid>
-                {splash}
-                {welcome}
-                {who}
-                {signup}
-                {footer}
-              </Grid>
-          </div>
-      );
-  }
-}
 
 export default App;
