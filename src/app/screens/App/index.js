@@ -12,21 +12,11 @@ const splash = (
 
 const welcome = (
     <Jumbotron>
-<<<<<<< HEAD
         <h2>Welcome home, listizens</h2>
         <p>
             Listopolis fosters a fast, flexible, and collaborative environment for creating and managing lists that
             lets you work on your own or with others.
         </p>
-=======
-        <Grid>
-            <h2>Welcome home, Listizens</h2>
-            <p>
-                Listopolis fosters a fast, flexible, and collaborative environment for creating and managing lists that
-                lets you work on your own or with others.
-            </p>
-        </Grid>
->>>>>>> 18e8f912d9bee8a0bb17db9729600de9b770a093
     </Jumbotron>
 );
 
