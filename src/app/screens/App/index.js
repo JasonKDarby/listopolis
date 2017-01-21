@@ -1,6 +1,7 @@
 import React from 'react';
-import { Grid, Row, Col, Navbar, Nav, NavItem, Jumbotron, Well, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Jumbotron, Well, Button } from 'react-bootstrap';
 import LoggedOutHeader from './shared/components/LoggedOutHeader';
+import Footer from './shared/components/Footer';
 
 const splash = (
     <Jumbotron>
@@ -71,27 +72,6 @@ const signup = (
     </Grid>
 );
 
-const footer = (
-    <Navbar>
-        <Nav pullLeft="true">
-            <Navbar.Text>© 2017 Listopolis, Inc.</Navbar.Text>
-            <NavItem disabled>Terms</NavItem>
-            <NavItem disabled>Privacy</NavItem>
-            <NavItem disabled>Security</NavItem>
-            <NavItem disabled>Status</NavItem>
-            <NavItem disabled>Help</NavItem>
-        </Nav>
-        <Nav pullRight="true">
-            <NavItem disabled>Contact Listopolis</NavItem>
-            <NavItem disabled>API</NavItem>
-            <NavItem disabled>Training</NavItem>
-            <NavItem disabled>Shop</NavItem>
-            <NavItem disabled>Blog</NavItem>
-            <NavItem disabled>About</NavItem>
-        </Nav>
-    </Navbar>
-);
-
 const App = () => (
     <div>
         <LoggedOutHeader/>
@@ -99,7 +79,7 @@ const App = () => (
         {welcome}
         {who}
         {signup}
-        {footer}
+        <Footer/>
     </div>
 );
 
