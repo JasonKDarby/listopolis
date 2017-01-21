@@ -15,7 +15,7 @@ const splash = (
 const welcome = (
     <Jumbotron>
         <Grid>
-            <h2>Welcome home, listizens</h2>
+            <h2>Welcome home, Listizens</h2>
             <p>
                 Listopolis fosters a fast, flexible, and collaborative environment for creating and managing lists that
                 lets you work on your own or with others.
@@ -33,7 +33,7 @@ const who = (
             <Col xs={6} md={4}>
                 <h3>Individuals</h3>
                 <p>
-                    Use listopolis to create personal lists, whether you want to experiment with a new buzzfeed
+                    Use Listopolis to create personal lists, whether you want to experiment with a new buzzfeed
                     50 page slideshow or keep track of guests to your dinner party.
                 </p>
             </Col>
