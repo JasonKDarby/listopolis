@@ -5,32 +5,31 @@ class LoggedOutHeader extends Component {
     render() {
         return (
             <Navbar>
-                <Nav pullLeft="true">
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="#">Listopolis</a>
+                    </Navbar.Brand>
+                </Navbar.Header>
+                <Nav>
                     <NavItem disabled>Personal</NavItem>
                     <NavItem disabled>Open source</NavItem>
                     <NavItem disabled>Business</NavItem>
                     <NavItem disabled>Explore</NavItem>
                     <NavItem disabled>Help</NavItem>
-                </Nav>
-                <Nav pullRight="true">
                     <NavItem disabled>Pricing</NavItem>
                     <NavItem disabled>Blog</NavItem>
                     <NavItem disabled>Support</NavItem>
-                    <NavItem>
-                        <form>
-                            <FormGroup>
-                                <InputGroup>
-                                    <FormControl type="text" placeholder="Search Listopolis"/>
-                                </InputGroup>
-                            </FormGroup>
-                        </form>
-                    </NavItem>
-                    <NavItem>
+                </Nav>
+                <Nav pullRight>
+                    <Navbar.Form>
+                        <FormGroup>
+                            <FormControl type="text" placeholder="Search Listopolis"/>
+                        </FormGroup>
+                        {' '}
                         <Button>Sign in</Button>
-                    </NavItem>
-                    <NavItem>
+                        {' '}
                         <Button>Sign up</Button>
-                    </NavItem>
+                    </Navbar.Form>
                 </Nav>
             </Navbar>
         );
