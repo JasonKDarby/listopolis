@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Grid, Row, Col, Navbar, Nav, NavItem, Jumbotron, Well, Button } from 'react-bootstrap';
 import LoggedOutHeader from './shared/components/LoggedOutHeader';
 
@@ -92,19 +92,15 @@ const footer = (
     </Navbar>
 );
 
-class App extends Component {
-  render() {
-      return (
-          <div>
-              <LoggedOutHeader/>
-              {splash}
-              {welcome}
-              {who}
-              {signup}
-              {footer}
-          </div>
-      );
-  }
-}
+const App = () => (
+    <div>
+        <LoggedOutHeader/>
+        {splash}
+        {welcome}
+        {who}
+        {signup}
+        {footer}
+    </div>
+);
 
 export default App;
