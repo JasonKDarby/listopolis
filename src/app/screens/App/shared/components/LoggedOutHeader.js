@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Navbar, Nav, NavItem, Button, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Button, FormGroup, FormControl } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 const LoggedOutHeader = () => (
