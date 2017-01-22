@@ -17,7 +17,6 @@ const App = () => (
             <SignUp/>
         </Body>
         <Footer/>
-        </Grid>
     </div>
 );
 
