@@ -3,7 +3,7 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 const Footer = () => (
     <Navbar>
-        <Nav pullLeft="true">
+        <Nav pullLeft>
             <Navbar.Text>© 2017 Listopolis, Inc.</Navbar.Text>
             <NavItem disabled>Terms</NavItem>
             <NavItem disabled>Privacy</NavItem>
@@ -11,7 +11,7 @@ const Footer = () => (
             <NavItem disabled>Status</NavItem>
             <NavItem disabled>Help</NavItem>
         </Nav>
-        <Nav pullRight="true">
+        <Nav pullRight>
             <NavItem disabled>Contact Listopolis</NavItem>
             <NavItem disabled>API</NavItem>
             <NavItem disabled>Training</NavItem>
