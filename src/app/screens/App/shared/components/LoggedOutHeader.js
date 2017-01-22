@@ -1,37 +1,32 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, Button, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
+import { Grid, Navbar, Nav, NavItem, Button, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 const LoggedOutHeader = () => (
     <Navbar>
         <Nav>
-            <NavItem disabled>Personal</NavItem>
-            <NavItem disabled>Open source</NavItem>
-            <NavItem disabled>Business</NavItem>
-            <NavItem disabled>Explore</NavItem>
-            <NavItem disabled>Help</NavItem>
+            <NavItem>Personal</NavItem>
+            <NavItem>Open Source</NavItem>
+            <NavItem>Business</NavItem>
+            <NavItem>Explore</NavItem>
+            <NavItem>Personal</NavItem>
         </Nav>
+        <Navbar.Form pullRight>
+            <FormGroup>
+                <Button>Sign In</Button>
+                {' '}
+                <Button bsStyle="success">Sign Up</Button>
+            </FormGroup>
+        </Navbar.Form>
+        <Navbar.Form pullRight>
+            <FormGroup>
+                <FormControl type="text" placeholder="Search Listopolis" />
+            </FormGroup>
+        </Navbar.Form>
         <Nav pullRight>
-            <NavItem disabled>Pricing</NavItem>
-            <NavItem disabled>Blog</NavItem>
-            <NavItem disabled>Support</NavItem>
-            <NavItem>
-                <Navbar.Form>
-                    <FormGroup>
-                        <InputGroup>
-                            <FormControl type="text" placeholder="Search Listopolis"/>
-                        </InputGroup>
-                    </FormGroup>
-                </Navbar.Form>
-            </NavItem>
-            <LinkContainer to="/login">
-                <NavItem>
-                    <Button>Sign in</Button>
-                </NavItem>
-            </LinkContainer>
-            <NavItem>
-                <Button>Sign up</Button>
-            </NavItem>
+            <NavItem>Pricing</NavItem>
+            <NavItem>Blog</NavItem>
+            <NavItem>Support</NavItem>
         </Nav>
     </Navbar>
 );
