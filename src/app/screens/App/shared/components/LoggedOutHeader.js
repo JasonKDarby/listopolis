@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, NavItem, Button, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const LoggedOutHeader = () => (
     <Navbar>
@@ -23,9 +24,11 @@ const LoggedOutHeader = () => (
                     </FormGroup>
                 </Navbar.Form>
             </NavItem>
-            <NavItem>
-                <Button>Sign in</Button>
-            </NavItem>
+            <LinkContainer to="/login">
+                <NavItem>
+                    <Button>Sign in</Button>
+                </NavItem>
+            </LinkContainer>
             <NavItem>
                 <Button>Sign up</Button>
             </NavItem>
