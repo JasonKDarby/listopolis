@@ -6,5 +6,6 @@ deploy:
     secret_access_key: "BmYeziJXOk0vPubMAUamvmWoO4TIcXOShgvQorG7"
     bucket: "listopolis"
     skip_cleanup: true
+    local_dir: build
     on:
         branch: travisCI
