@@ -13,7 +13,9 @@ const LoggedOutHeader = () => (
         </Nav>
         <Navbar.Form pullRight>
             <FormGroup>
-                <Button>Sign In</Button>
+                <LinkContainer to="/login">
+                    <Button>Sign In</Button>
+                </LinkContainer>
                 {' '}
                 <Button bsStyle="success">Sign Up</Button>
             </FormGroup>
