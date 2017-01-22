@@ -3,25 +3,25 @@ import { Navbar, Nav, NavItem, Button, FormGroup, FormControl, InputGroup } from
 
 const LoggedOutHeader = () => (
     <Navbar>
-        <Nav pullLeft="true">
+        <Nav>
             <NavItem disabled>Personal</NavItem>
             <NavItem disabled>Open source</NavItem>
             <NavItem disabled>Business</NavItem>
             <NavItem disabled>Explore</NavItem>
             <NavItem disabled>Help</NavItem>
         </Nav>
-        <Nav pullRight="true">
+        <Nav pullRight>
             <NavItem disabled>Pricing</NavItem>
             <NavItem disabled>Blog</NavItem>
             <NavItem disabled>Support</NavItem>
             <NavItem>
-                <form>
+                <Navbar.Form>
                     <FormGroup>
                         <InputGroup>
                             <FormControl type="text" placeholder="Search Listopolis"/>
                         </InputGroup>
                     </FormGroup>
-                </form>
+                </Navbar.Form>
             </NavItem>
             <NavItem>
                 <Button>Sign in</Button>
@@ -33,4 +33,4 @@ const LoggedOutHeader = () => (
     </Navbar>
 );
 
-export default LoggedOutHeader
+export default LoggedOutHeader;
