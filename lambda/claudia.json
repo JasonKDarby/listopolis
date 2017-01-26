@@ -1,0 +1,7 @@
+{
+  "lambda": {
+    "role": "listopolis-lambda",
+    "name": "listopolis-demo",
+    "region": "us-east-1"
+  }
+}
