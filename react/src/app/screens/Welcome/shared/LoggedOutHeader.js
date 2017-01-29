@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-const Header = () => (
+const LoggedOutHeader = () => (
     <Navbar>
         <Navbar.Header>
             <Navbar.Brand>
@@ -39,4 +39,4 @@ const Header = () => (
     </Navbar>
 );
 
-export default Header;
+export default LoggedOutHeader;

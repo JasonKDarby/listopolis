@@ -1,7 +1,11 @@
 {
   "lambda": {
-    "role": "listopolis-lambda",
-    "name": "listopolis-demo",
+    "role": "listopolis-executor",
+    "name": "listopolis",
     "region": "us-east-1"
+  },
+  "api": {
+    "id": "lj6zpih4la",
+    "module": "bin/index"
   }
 }

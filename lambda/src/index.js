@@ -1,2 +1,9 @@
-import Main from './dummy';
-exports.handler = Main.dummyHandler;
+import ApiBuilder from "claudia-api-builder";
+import SignUp from './api/calls/SignUp/index';
+
+const API = new ApiBuilder();
+
+//Set up routes here.
+API.get("/hello/{name}", SignUp);
+
+module.exports = API

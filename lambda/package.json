@@ -5,6 +5,7 @@
   "main": "index.js",
   "repository": {},
   "license": "MIT",
+  "files": [ "bin" ],
   "dependencies": {
     "claudia-api-builder": "^2.4.0"
   },
@@ -18,7 +19,8 @@
   },
   "scripts": {
     "transpile": "rm -rf ./bin && babel --presets es2015 src --out-dir bin --ignore \"**/*.test.js\"",
-    "test": "jest --env=jsdom"
+    "test": "jest --env=jsdom",
+    "deploy": "npm run transpile && claudia create --name listopolis --region us-east-1 --api-module bin/index"
   },
   "jest": {
     "rootDir": "./src"
