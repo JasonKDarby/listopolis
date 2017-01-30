@@ -1,8 +1,8 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import SignUpWithGoogle from './components/SignUpWithGoogle';
-import { hashHistory } from 'react-router';
+import React from 'react'
+import { Button } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import SignUpWithGoogle from './components/SignUpWithGoogle'
+import { hashHistory } from 'react-router'
 import Auth from '../../../../Auth'
 import LoggedOutHeader from '../../shared/LoggedOutHeader'
 

@@ -48,7 +48,7 @@ import GoogleLogin from 'react-google-login';
 
 const SignUpWithGoogle = (props) => (
     <GoogleLogin
-        clientId="some client id"
+        clientId="1082023031151-8kl281rdftoese7mi8154v7q2f6ccdtl.apps.googleusercontent.com"
         buttonText="Sign up with Google"
         onSuccess={props.onGoogleSignUpSuccess}
         onFailure={props.onGoogleSignUpFailure}

@@ -1,5 +1,12 @@
 import React from 'react';
-import { Navbar, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
+import { Navbar, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
+import Auth from '../../../../../../../Auth'
+import { hashHistory } from 'react-router'
+
+const logout = () => {
+    Auth.logout()
+    hashHistory.push('/')
+}
 
 const LoggedInHeader = (props) => (
     <div>
@@ -14,7 +21,7 @@ const LoggedInHeader = (props) => (
                 <Navbar.Form pullRight>
                     <ButtonToolbar>
                         <ButtonGroup>
-                            <Button>Logout</Button>
+                            <Button onClick={logout}>Logout</Button>
                         </ButtonGroup>
                     </ButtonToolbar>
                 </Navbar.Form>
