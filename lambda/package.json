@@ -5,8 +5,11 @@
   "main": "index.js",
   "repository": {},
   "license": "MIT",
-  "files": [ "bin" ],
+  "files": [
+    "bin"
+  ],
   "dependencies": {
+    "aws-sdk": "^2.9.0",
     "claudia-api-builder": "^2.4.0"
   },
   "devDependencies": {

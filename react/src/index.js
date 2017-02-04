@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app/App';
 import Welcome from './app/screens/Welcome/index';
-import SignUp from './app/screens/Welcome/screens/SignUp/index';
 import Login from './app/screens/Welcome/screens/Login/index';
 import Main from './app/screens/Welcome/screens/Login/screens/Main/index';
 import List from './app/screens/Welcome/screens/Login/screens/Main/screens/List/index';
@@ -29,7 +28,6 @@ ReactDOM.render((
         <Route path="/" component={App}>
             <IndexRoute onEnter={unauthRequired} component={Welcome} />
             <Route path="/login" onEnter={unauthRequired} component={Login} />
-            <Route path="/signup" onEnter={unauthRequired} component={SignUp} />
             <Route onEnter={authRequired} component={LoggedInHeader}>
                 <Route path="/main" component={Main} />
                 <Route path="/list" component={List} />

@@ -7,9 +7,10 @@ const Splash = () => (
     <Jumbotron className="text-center">
         <h1>1. <span className="blinking-cursor">|</span></h1>
         <p>Create, keep, and share lists.</p>
-        <LinkContainer to="/signup">
-            <Button bsStyle="success">Sign up for Listopolis</Button>
+        <LinkContainer to="/login">
+            <Button bsStyle="success">Log in to Listopolis</Button>
         </LinkContainer>
+        <h5>(using a Google account)</h5>
     </Jumbotron>
 );
 
