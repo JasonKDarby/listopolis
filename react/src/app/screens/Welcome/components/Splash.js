@@ -10,7 +10,6 @@ const Splash = () => (
         <LinkContainer to="/login">
             <Button bsStyle="success">Log in to Listopolis</Button>
         </LinkContainer>
-        <h5>(using a Google account)</h5>
     </Jumbotron>
 );
 
