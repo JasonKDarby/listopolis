@@ -15,3 +15,7 @@ bin
 # misc
 .DS_Store
 npm-debug.log
+.serverless
+yarn-error.log
+
+serverless/env.yml
