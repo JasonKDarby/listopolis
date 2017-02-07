@@ -27,16 +27,43 @@ class Auth extends singleton {
             Pool: userPool
         }
         let cognitoUser = new CognitoUser(userData)
-        cognitoUser.authenticateUser(authenticationDetails, {
+
+        let authenticateUserHandler = {
             onSuccess: (result) => {
+                console.log('onSuccess')
                 console.log('result')
                 console.log(result)
             },
             onFailure: (error) => {
+                console.log('onFailure')
                 console.log('error')
                 console.log(error)
+            },
+            newPasswordRequired: (userAttributes, requiredAttributes) => {
+                // User was signed up by an admin and must provide new
+                // password and required attributes, if any, to complete
+                // authentication.
+                console.log('newPasswordRequired')
+                console.log('userAttributes')
+                console.log(userAttributes)
+                console.log('requiredAttributes')
+                console.log(requiredAttributes)
+
+                // the api doesn't accept this field back
+                delete userAttributes.email_verified
+
+                userAttributes.preferred_username = 'dummyUsername'
+
+                let newPassword = 'dummyPassword'
+
+                console.log('authenticateUserHandler')
+                console.log(authenticateUserHandler)
+                // Get these details and call
+                cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, authenticateUserHandler)
             }
-        })
+        }
+
+        cognitoUser.authenticateUser(authenticationDetails, authenticateUserHandler)
     }
 
     logout() {

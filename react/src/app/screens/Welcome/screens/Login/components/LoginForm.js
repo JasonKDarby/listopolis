@@ -19,35 +19,39 @@ const fields = [{
     rules: 'required|string|between:8,25'
 }]
 
-class LoginFormBacking extends MobxReactForm {
+class LoginForm extends MobxReactForm {
     onSuccess(form) {
-        console.log('Form Values!', form.values())
-        Auth.login(form.values().username, form.values().password, () => {}, (error) => {})
+        Auth.login(
+            form.values().username,
+            form.values().password,
+            () => {},
+            (error) => {}
+        )
     }
     onError(form) {
-        console.log('All form errors', form.errors())
         form.invalidate('Error!')
     }
 }
 
-const loginFormBacking = new LoginFormBacking({ fields }, { plugins })
+const loginForm = new LoginForm({ fields }, { plugins })
 
-const LoginForm = observer(() =>
-    <Form onSubmit={loginFormBacking.onSubmit} horizontal>
+export default observer(() =>
+    <Form onSubmit={loginForm.onSubmit} horizontal>
         <FormGroup>
             <Col sm={2}>
-                {loginFormBacking.$('username').label}
+                {loginForm.$('username').label}
             </Col>
             <Col sm={8}>
-                <FormControl {...loginFormBacking.$('username').bind()}/>
+                <FormControl {...loginForm.$('username').bind()}/>
             </Col>
         </FormGroup>
         <FormGroup>
             <Col sm={2}>
-                {loginFormBacking.$('password').label}
+                {loginForm.$('password').label}
             </Col>
             <Col sm={8}>
-                <FormControl {...loginFormBacking.$('password').bind()}/>
+                {/*mobx-react-form applies text type but we need password so we overwrite it*/}
+                <FormControl {...loginForm.$('password').bind()} type="password"/>
             </Col>
         </FormGroup>
         <FormGroup>
@@ -57,13 +61,11 @@ const LoginForm = observer(() =>
         </FormGroup>
         <FormGroup>
             <Col smOffset={2} sm={10}>
-                <Button type="submit" onClick={loginFormBacking.onSubmit}>
+                <Button type="submit" onClick={loginForm.onSubmit}>
                     Sign in
                 </Button>
             </Col>
         </FormGroup>
-        <p>{loginFormBacking.error}</p>
+        <p>{loginForm.error}</p>
     </Form>
 )
-
-export default LoginForm
