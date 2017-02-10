@@ -3,7 +3,7 @@ import { Form, FormGroup, FormControl, Checkbox, Button, Col } from 'react-boots
 import { observer } from 'mobx-react'
 import MobxReactForm from 'mobx-react-form'
 import validatorjs from 'validatorjs'
-import Auth from '../../../../../Auth'
+import Auth from '../../../../../shared/Auth'
 
 const plugins = { dvr: validatorjs }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
-import Auth from '../../../../../../../Auth'
+import Auth from '../../../../../../../shared/Auth'
 import { hashHistory } from 'react-router'
 
 const logout = () => {

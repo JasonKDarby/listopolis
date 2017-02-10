@@ -8,7 +8,7 @@ import List from './app/screens/Welcome/screens/Login/screens/Main/screens/List/
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
-import Auth from './app/Auth'
+import Auth from './app/shared/Auth'
 import LoggedInHeader from './app/screens/Welcome/screens/Login/screens/Main/shared/LoggedInHeader'
 
 const authRequired = (nextState, replace) => {
