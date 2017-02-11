@@ -30,7 +30,9 @@ class LoginForm extends MobxReactForm {
             },
             (error) => {
                 form.invalidate(error.message)
-            }
+            },
+            //I need to find out how to grab this from another page.
+            () => "DummyPassword12345"
         )
     }
     onError(form) {

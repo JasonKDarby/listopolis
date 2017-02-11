@@ -1,6 +1,49 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import APICredentials from '../config/APICredentials';
 
+//This is super sloppy, I know.  However, I don't know enough about 'this' to be able to pass
+// this to completeNewPasswordChallenge without going this way.  I want to change this very badly.
+const authenticationHandler = {
+
+    cognitoUser: null,
+
+    newPasswordRequiredCallback: null,
+
+    onSuccessCallback: null,
+
+    onFailureCallback: null,
+
+    setJWTToken: null,
+
+    onSuccess: function(result) {
+        console.log('access token')
+        console.log(result.getAccessToken().getJwtToken())
+        this.setJWTToken(result.getAccessToken().getJwtToken())
+        this.onSuccessCallback(result.getAccessToken().getJwtToken())
+    },
+
+    onFailure: function(error) {
+        console.log('authentication error')
+        console.log(JSON.stringify(error))
+        this.onFailureCallback(error)
+    },
+
+    mfaRequired: function(codeDeliveryDetails) {
+        alert('mfaRequired not implemented');
+        alert(codeDeliveryDetails);
+    },
+
+    newPasswordRequired: function(userAttributes, requiredAttributes) {
+        //TODO:  clearly this is going to change
+        console.log('userAttributes');
+        console.log(userAttributes);
+        console.log('requiredAttributes');
+        console.log(requiredAttributes)
+        let newPassword = this.newPasswordRequiredCallback();
+        this.cognitoUser.completeNewPasswordChallenge(newPassword, { preferred_username: "dummy" }, this);
+    }
+}
+
 export default class {
 
     cognitoUser = null;
@@ -40,16 +83,9 @@ export default class {
     }
 
     confirmSignUp(code, onSuccess, onFailure) {
-        this.cognitoUser.confirmRegistration(code, false, (error, result) => {
-            if(error) {
-                console.log('confirmSignUp error');
-                console.log(JSON.stringify(error));
-                onFailure(error);
-            } else {
-                console.log('confirmSignUp success');
-                onSuccess(result);
-            }
-        })
+        this.cognitoUser.confirmRegistration(code, false,
+            (error, result) => error ? onFailure(error) : onSuccess(result)
+        );
     }
 
     get isLoggedIn() {
@@ -82,41 +118,27 @@ export default class {
     }
 
     //use case 4
-    login(username, password, onLoginSuccess, onLoginFailure) {
-        let authenticationDetails = new AuthenticationDetails({
-            Username: username,
-            Password: password
-        });
-
-        let userPool = new CognitoUserPool({
-            UserPoolId: APICredentials.cognitoUserPoolId,
-            ClientId: APICredentials.cognitoAppClientId
-        });
-
+    login(username, password, onSuccessCallback, onFailureCallback, newPasswordRequiredCallback) {
         this.cognitoUser = new CognitoUser({
             Username: username,
-            Pool: userPool
+            Pool: new CognitoUserPool({
+                UserPoolId: APICredentials.cognitoUserPoolId,
+                ClientId: APICredentials.cognitoAppClientId
+            })
         });
 
-        let createAuthenticationHandler = (successFunction, failureFunction) => {
-            return {
-                onSuccess: (result) => {
-                    console.log('access token')
-                    console.log(result.getAccessToken().getJwtToken())
-                    this.jwtToken = result.getAccessToken().getJwtToken()
-                    successFunction(result.getAccessToken().getJwtToken())
-                },
-                onFailure: (error) => {
-                    console.log('authentication error')
-                    console.log(JSON.stringify(error))
-                    failureFunction(error)
-                }
-            }
-        };
+        authenticationHandler.cognitoUser = this.cognitoUser;
+        authenticationHandler.setJWTToken = (jwtToken) => this.jwtToken = jwtToken;
+        authenticationHandler.onSuccessCallback = onSuccessCallback;
+        authenticationHandler.onFailureCallback = onFailureCallback;
+        authenticationHandler.newPasswordRequiredCallback = newPasswordRequiredCallback;
 
         this.cognitoUser.authenticateUser(
-            authenticationDetails,
-            createAuthenticationHandler(onLoginSuccess, onLoginFailure)
+            new AuthenticationDetails({
+                Username: username,
+                Password: password
+            }),
+            authenticationHandler
         );
     }
 
@@ -129,13 +151,7 @@ export default class {
 
     //use case 13
     deleteUser(onSuccess, onFailure) {
-        this.cognitoUser.deleteUser((error, result) => {
-            if(error) {
-                onFailure(error);
-            } else {
-                onSuccess(result);
-            }
-        });
+        this.cognitoUser.deleteUser((error, result) => error ? onFailure(error) : onSuccess(result));
     }
 
 }
