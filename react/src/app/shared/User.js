@@ -1,92 +1,102 @@
-import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
-import APICredentials from '../config/APICredentials'
+import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
+import APICredentials from '../config/APICredentials';
 
-class User {
+export default class {
 
-    cognitoUser = null
+    cognitoUser = null;
 
-    jwtToken = null
+    jwtToken = null;
 
+    //use case 1
     signUp(username, password, preferredUsername, onSuccess, onFailure) {
-        //use case 1
         let userPool = new CognitoUserPool({
             UserPoolId: APICredentials.cognitoUserPoolId,
             ClientId: APICredentials.cognitoAppClientId
-        })
+        });
 
-        let attributeList = []
+        let attributeList = [];
 
         let dataPreferredUsername = {
             Name: 'preferred_username',
             Value: preferredUsername
-        }
+        };
 
-        let attributePreferredUsername = new CognitoUserAttribute(dataPreferredUsername)
+        let attributePreferredUsername = new CognitoUserAttribute(dataPreferredUsername);
 
-        attributeList.push(attributePreferredUsername)
+        attributeList.push(attributePreferredUsername);
 
-        return userPool.signUp(username, password, attributeList, null, (error, result) => {
+        userPool.signUp(username, password, attributeList, null, (error, result) => {
             if(error) {
-                console.log('signUp failure error')
-                console.log(error)
-                onFailure(error)
+                console.log('signUp failure error');
+                console.log(error);
+                onFailure(error);
             } else {
-                console.log('signUp result')
-                console.log(JSON.stringify(result))
-                this.cognitoUser = result.user
-                onSuccess()
+                console.log('signUp result');
+                console.log(JSON.stringify(result));
+                this.cognitoUser = result.user;
+                onSuccess();
             }
-        })
+        });
     }
 
     confirmSignUp(code, onSuccess, onFailure) {
-        return this.cognitoUser.confirmRegistration(code, false, (error, result) => {
+        this.cognitoUser.confirmRegistration(code, false, (error, result) => {
             if(error) {
-                console.log('confirmSignUp error')
-                console.log(JSON.stringify(error))
-                onFailure(error)
+                console.log('confirmSignUp error');
+                console.log(JSON.stringify(error));
+                onFailure(error);
             } else {
-                console.log('confirmSignUp success')
-                onSuccess(result)
+                console.log('confirmSignUp success');
+                onSuccess(result);
             }
         })
     }
 
     get isLoggedIn() {
-        let isLoggedIn = false
+        let isLoggedIn = false;
         if(this.cognitoUser) {
             if(this.cognitoUser.getSignInUserSession()) {
-                console.log('user session')
-                console.log(this.cognitoUser.getSignInUserSession())
                 if(this.cognitoUser.getSignInUserSession().isValid()) {
-                    console.log('user is signed in')
-                    isLoggedIn = true
+                    isLoggedIn = true;
                 }
-            } else {
-                console.log('user is not signed in')
             }
         } else {
+            let userPool = new CognitoUserPool({
+                UserPoolId : APICredentials.cognitoUserPoolId,
+                ClientId : APICredentials.cognitoAppClientId
+            });
+            let cognitoUser = userPool.getCurrentUser();
 
+            if (cognitoUser != null) {
+                cognitoUser.getSession((error, session) => {
+                    if (error) {
+                        alert(error);
+                        return false;
+                    }
+                    isLoggedIn = session.isValid();
+                    this.cognitoUser = cognitoUser;
+                });
+            }
         }
-        return isLoggedIn
+        return isLoggedIn;
     }
 
+    //use case 4
     login(username, password, onLoginSuccess, onLoginFailure) {
-        //use case 4
         let authenticationDetails = new AuthenticationDetails({
             Username: username,
             Password: password
-        })
+        });
 
         let userPool = new CognitoUserPool({
             UserPoolId: APICredentials.cognitoUserPoolId,
             ClientId: APICredentials.cognitoAppClientId
-        })
+        });
 
         this.cognitoUser = new CognitoUser({
             Username: username,
             Pool: userPool
-        })
+        });
 
         let createAuthenticationHandler = (successFunction, failureFunction) => {
             return {
@@ -102,41 +112,30 @@ class User {
                     failureFunction(error)
                 }
             }
-        }
+        };
 
-        return this.cognitoUser.authenticateUser(
+        this.cognitoUser.authenticateUser(
             authenticationDetails,
             createAuthenticationHandler(onLoginSuccess, onLoginFailure)
-        )
+        );
     }
 
-    logout() {
-        //use case 14
-        this.cognitoUser.signOut()
-        this.jwtToken = null
-        console.log('signed out user')
-        console.log(JSON.stringify(this.cognitoUser))
-    }
+    //use case 14
+    logout() { this.cognitoUser.signOut(); this.jwtToken = null };
 
+    //use case 11
     changePassword(oldPassword, newPassword, onSuccess, onFailure) {
-        //use case 11
     }
 
+    //use case 13
     deleteUser(onSuccess, onFailure) {
-        //use case 13
-        return this.cognitoUser.deleteUser((error, result) => {
+        this.cognitoUser.deleteUser((error, result) => {
             if(error) {
-                console.log('error deleting user')
-                console.log(error)
-                onFailure(error)
+                onFailure(error);
             } else {
-                console.log('successfully deleted user')
-                console.log(result)
-                onSuccess()
+                onSuccess(result);
             }
-        })
+        });
     }
 
 }
-
-export default User
