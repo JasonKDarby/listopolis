@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, Grid, Row, Col } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-import List from './components/List'
+import { Button, Grid, Row, Col } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import List from './components/List';
 
 //TODO:  uhh, all of it
-const Main = () => (
+export default () => (
     <div>
         <Grid>
             <Row>
@@ -27,5 +27,3 @@ const Main = () => (
         </Grid>
     </div>
 );
-
-export default Main;

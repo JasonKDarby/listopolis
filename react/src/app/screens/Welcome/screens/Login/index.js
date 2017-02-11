@@ -1,9 +1,9 @@
-import React from 'react'
-import { Grid, Col, Row } from 'react-bootstrap'
-import LoginForm from './components/LoginForm'
-import HeaderLogo from './components/HeaderLogo'
+import React from 'react';
+import { Grid, Col, Row } from 'react-bootstrap';
+import LoginForm from './components/LoginForm';
+import HeaderLogo from './components/HeaderLogo';
 
-const Login = () => (
+export default () => (
     <div>
         <Grid>
             <Row>
@@ -19,5 +19,3 @@ const Login = () => (
         </Grid>
     </div>
 );
-
-export default Login;

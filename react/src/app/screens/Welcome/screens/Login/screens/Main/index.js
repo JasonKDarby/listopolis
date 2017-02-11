@@ -1,10 +1,9 @@
-import React from 'react'
-import { Button, Grid, Row, Col } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-import YourLists from './components/YourLists'
+import React from 'react';
+import { Button, Grid, Row, Col } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import YourLists from './components/YourLists';
 
-//TODO:  uhh, all of it
-const Main = () => (
+export default () => (
     <div>
         <Grid>
             <Row>
@@ -27,5 +26,3 @@ const Main = () => (
         </Grid>
     </div>
 );
-
-export default Main;

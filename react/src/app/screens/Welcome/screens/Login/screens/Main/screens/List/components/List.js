@@ -1,7 +1,7 @@
 import React from 'react';
 
 //TODO:  uhh, all of it
-const List = () => (
+export default () => (
     <div>
         <p className="text-center">Here's a dummy list title.</p>
         <ol>
@@ -12,5 +12,3 @@ const List = () => (
         </ol>
     </div>
 );
-
-export default List;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
+import { Navbar, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 
 export default ({ children, user, history }) => (
     <div>

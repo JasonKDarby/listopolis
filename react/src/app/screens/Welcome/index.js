@@ -1,10 +1,8 @@
 import React from 'react';
 import Splash from './components/Splash';
 
-const Welcome = () => (
+export default () => (
     <div>
         <Splash/>
     </div>
 );
-
-export default Welcome;

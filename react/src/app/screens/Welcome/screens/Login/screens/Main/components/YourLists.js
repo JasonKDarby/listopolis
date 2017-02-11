@@ -14,7 +14,7 @@ const title = (
 );
 
 //TODO:  uhh, all of it
-const YourLists = () => (
+export default () => (
     <div>
         <Panel header={title}>
             <ul>
@@ -30,5 +30,3 @@ const YourLists = () => (
         </Panel>
     </div>
 );
-
-export default YourLists;
