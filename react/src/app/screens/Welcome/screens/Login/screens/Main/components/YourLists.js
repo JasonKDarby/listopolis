@@ -15,18 +15,16 @@ const title = (
 
 //TODO:  uhh, all of it
 export default () => (
-    <div>
-        <Panel header={title}>
-            <ul>
-                <li>first list</li>
-                <li>second list</li>
-                <li>fourth list</li>
-                <li>fifth list</li>
-                <li>second list</li>
-                <li>second list</li>
-                <li>second list</li>
-                <li>second list</li>
-            </ul>
-        </Panel>
-    </div>
+    <Panel header={title}>
+        <ul>
+            <li>first list</li>
+            <li>second list</li>
+            <li>fourth list</li>
+            <li>fifth list</li>
+            <li>second list</li>
+            <li>second list</li>
+            <li>second list</li>
+            <li>second list</li>
+        </ul>
+    </Panel>
 );

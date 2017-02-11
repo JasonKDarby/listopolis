@@ -5,25 +5,23 @@ import List from './components/List';
 
 //TODO:  uhh, all of it
 export default () => (
-    <div>
-        <Grid>
-            <Row>
-                <Col xs={12} className="text-center">
-                    <p>TEMPORARY LIST PAGE</p>
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={12} sm={8} smOffset={2}>
-                    <List/>
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={12}>
-                    <LinkContainer to="/main">
-                        <Button>Continue</Button>
-                    </LinkContainer>
-                </Col>
-            </Row>
-        </Grid>
-    </div>
+    <Grid>
+        <Row>
+            <Col xs={12} className="text-center">
+                <p>TEMPORARY LIST PAGE</p>
+            </Col>
+        </Row>
+        <Row>
+            <Col xs={12} sm={8} smOffset={2}>
+                <List/>
+            </Col>
+        </Row>
+        <Row>
+            <Col xs={12}>
+                <LinkContainer to="/main">
+                    <Button>Continue</Button>
+                </LinkContainer>
+            </Col>
+        </Row>
+    </Grid>
 );
