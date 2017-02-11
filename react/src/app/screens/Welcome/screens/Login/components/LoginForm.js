@@ -3,7 +3,8 @@ import { Form, FormGroup, FormControl, Checkbox, Button, Col } from 'react-boots
 import { observer } from 'mobx-react'
 import MobxReactForm from 'mobx-react-form'
 import validatorjs from 'validatorjs'
-import Auth from '../../../../../shared/Auth'
+import { user } from '../../../../../shared/Store'
+import { hashHistory } from 'react-router'
 
 const plugins = { dvr: validatorjs }
 
@@ -21,11 +22,15 @@ const fields = [{
 
 class LoginForm extends MobxReactForm {
     onSuccess(form) {
-        Auth.login(
+        user.login(
             form.values().username,
             form.values().password,
-            () => {},
-            (error) => {}
+            () => {
+                hashHistory.push('/main')
+            },
+            (error) => {
+                form.invalidate(error.message)
+            }
         )
     }
     onError(form) {
@@ -37,6 +42,7 @@ const loginForm = new LoginForm({ fields }, { plugins })
 
 export default observer(() =>
     <Form onSubmit={loginForm.onSubmit} horizontal>
+        <p>{loginForm.error}</p>
         <FormGroup>
             <Col sm={2}>
                 {loginForm.$('username').label}
@@ -66,6 +72,5 @@ export default observer(() =>
                 </Button>
             </Col>
         </FormGroup>
-        <p>{loginForm.error}</p>
     </Form>
 )

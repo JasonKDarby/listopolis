@@ -1,14 +1,7 @@
 import React from 'react';
 import { Navbar, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
-import Auth from '../../../../../../../shared/Auth'
-import { hashHistory } from 'react-router'
 
-const logout = () => {
-    Auth.logout()
-    hashHistory.push('/')
-}
-
-const LoggedInHeader = (props) => (
+export default ({ children, user, history }) => (
     <div>
         <Navbar>
             <Navbar.Header>
@@ -21,14 +14,12 @@ const LoggedInHeader = (props) => (
                 <Navbar.Form pullRight>
                     <ButtonToolbar>
                         <ButtonGroup>
-                            <Button onClick={logout}>Logout</Button>
+                            <Button onClick={() => { user.logout(); history.push('/') }}>Logout</Button>
                         </ButtonGroup>
                     </ButtonToolbar>
                 </Navbar.Form>
             </Navbar.Collapse>
         </Navbar>
-        {props.children}
+        {React.cloneElement(children, { user: user })}
     </div>
-)
-
-export default LoggedInHeader
+);

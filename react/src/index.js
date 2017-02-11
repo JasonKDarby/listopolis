@@ -8,27 +8,23 @@ import List from './app/screens/Welcome/screens/Login/screens/Main/screens/List/
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
-import Auth from './app/shared/Auth'
-import LoggedInHeader from './app/screens/Welcome/screens/Login/screens/Main/shared/LoggedInHeader'
+import { user } from './app/shared/Store';
+import LoggedInHeader from './app/screens/Welcome/screens/Login/screens/Main/shared/LoggedInHeader';
 
-const authRequired = (nextState, replace) => {
-    if(!Auth.isLoggedIn) {
-        replace('/login')
-    }
-}
+//Not really a fan of using null here but whatever
+const authRequired = (nextState, replace) => !user.isLoggedIn ? replace('/login') : null;
 
-const unauthRequired = (nextState, replace) => {
-    if(Auth.isLoggedIn) {
-        replace('/main')
-    }
-}
+const unauthRequired = (nextState, replace) => user.isLoggedIn ? replace('/main') : null;
 
 ReactDOM.render((
     <Router history={hashHistory}>
         <Route path="/" component={App}>
             <IndexRoute onEnter={unauthRequired} component={Welcome} />
             <Route path="/login" onEnter={unauthRequired} component={Login} />
-            <Route onEnter={authRequired} component={LoggedInHeader}>
+            <Route
+                onEnter={authRequired}
+                component={ (props) => (<LoggedInHeader user={user} history={hashHistory} {...props} />) }
+            >
                 <Route path="/main" component={Main} />
                 <Route path="/list" component={List} />
             </Route>

@@ -30,8 +30,7 @@ class User {
                 console.log('signUp failure error')
                 console.log(error)
                 onFailure(error)
-            }
-            else {
+            } else {
                 console.log('signUp result')
                 console.log(JSON.stringify(result))
                 this.cognitoUser = result.user
@@ -66,8 +65,7 @@ class User {
             } else {
                 console.log('user is not signed in')
             }
-        }
-        else {
+        } else {
 
         }
         return isLoggedIn
@@ -85,7 +83,7 @@ class User {
             ClientId: APICredentials.cognitoAppClientId
         })
 
-        let cognitoUser = new CognitoUser({
+        this.cognitoUser = new CognitoUser({
             Username: username,
             Pool: userPool
         })
@@ -106,10 +104,13 @@ class User {
             }
         }
 
-        return cognitoUser.authenticateUser(authenticationDetails, createAuthenticationHandler(onLoginSuccess, onLoginFailure))
+        return this.cognitoUser.authenticateUser(
+            authenticationDetails,
+            createAuthenticationHandler(onLoginSuccess, onLoginFailure)
+        )
     }
 
-    signOut() {
+    logout() {
         //use case 14
         this.cognitoUser.signOut()
         this.jwtToken = null
