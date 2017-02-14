@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, FormGroup, FormControl, Checkbox, Button, Col } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, Button, Col } from 'react-bootstrap'
 import { observer } from 'mobx-react'
 import MobxReactForm from 'mobx-react-form'
 import validatorjs from 'validatorjs'
@@ -30,9 +30,7 @@ class LoginForm extends MobxReactForm {
             },
             (error) => {
                 form.invalidate(error.message)
-            },
-            //I need to find out how to grab this from another page.
-            () => "DummyPassword12345"
+            }
         )
     }
     onError(form) {
@@ -60,11 +58,6 @@ export default observer(() =>
             <Col sm={8}>
                 {/*mobx-react-form applies text type but we need password so we overwrite it*/}
                 <FormControl {...loginForm.$('password').bind()} type="password"/>
-            </Col>
-        </FormGroup>
-        <FormGroup>
-            <Col smOffset={2} sm={10}>
-                <Checkbox>Remember me</Checkbox>
             </Col>
         </FormGroup>
         <FormGroup>

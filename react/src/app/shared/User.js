@@ -1,19 +1,18 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import APICredentials from '../config/APICredentials';
+import { hashHistory } from 'react-router';
 
 //This is super sloppy, I know.  However, I don't know enough about 'this' to be able to pass
 // this to completeNewPasswordChallenge without going this way.  I want to change this very badly.
 const authenticationHandler = {
-
-    cognitoUser: null,
-
-    newPasswordRequiredCallback: null,
 
     onSuccessCallback: null,
 
     onFailureCallback: null,
 
     setJWTToken: null,
+
+    setCompleteAdminCreatedAccountSignupRequired: null,
 
     onSuccess: function(result) {
         console.log('access token')
@@ -33,14 +32,14 @@ const authenticationHandler = {
         alert(codeDeliveryDetails);
     },
 
+    customChallenge: function(whoKnows) {
+        alert('customChallenge not implemented');
+        alert(whoKnows);
+    },
+
     newPasswordRequired: function(userAttributes, requiredAttributes) {
-        //TODO:  clearly this is going to change
-        console.log('userAttributes');
-        console.log(userAttributes);
-        console.log('requiredAttributes');
-        console.log(requiredAttributes)
-        let newPassword = this.newPasswordRequiredCallback();
-        this.cognitoUser.completeNewPasswordChallenge(newPassword, { preferred_username: "dummy" }, this);
+        this.setCompleteAdminCreatedAccountSignupRequired(true);
+        hashHistory.push('/newPasswordRequired');
     }
 }
 
@@ -49,6 +48,8 @@ export default class {
     cognitoUser = null;
 
     jwtToken = null;
+
+    completeAdminCreatedAccountSignupRequired = false;
 
     //use case 1
     signUp(username, password, preferredUsername, onSuccess, onFailure) {
@@ -118,7 +119,7 @@ export default class {
     }
 
     //use case 4
-    login(username, password, onSuccessCallback, onFailureCallback, newPasswordRequiredCallback) {
+    login(username, password, onSuccessCallback, onFailureCallback) {
         this.cognitoUser = new CognitoUser({
             Username: username,
             Pool: new CognitoUserPool({
@@ -131,7 +132,8 @@ export default class {
         authenticationHandler.setJWTToken = (jwtToken) => this.jwtToken = jwtToken;
         authenticationHandler.onSuccessCallback = onSuccessCallback;
         authenticationHandler.onFailureCallback = onFailureCallback;
-        authenticationHandler.newPasswordRequiredCallback = newPasswordRequiredCallback;
+        authenticationHandler.setCompleteAdminCreatedAccountSignupRequired =
+            (required) => this.completeAdminCreatedAccountSignupRequired = required;
 
         this.cognitoUser.authenticateUser(
             new AuthenticationDetails({
@@ -140,6 +142,16 @@ export default class {
             }),
             authenticationHandler
         );
+    }
+
+    completeAdminCreatedAccountSignup(newPassword, email, onSuccessCallback, onFailureCallback) {
+        authenticationHandler.cognitoUser = this.cognitoUser;
+        authenticationHandler.setJWTToken = (jwtToken) => this.jwtToken = jwtToken;
+        authenticationHandler.onSuccessCallback = onSuccessCallback;
+        authenticationHandler.onFailureCallback = onFailureCallback;
+        authenticationHandler.setCompleteAdminCreatedAccountSignupRequired =
+            (required) => this.completeAdminCreatedAccountSignupRequired = required;
+        this.cognitoUser.completeNewPasswordChallenge(newPassword, { email: email }, authenticationHandler);
     }
 
     //use case 14
