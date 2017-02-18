@@ -24,7 +24,7 @@ const fields = [{
     rules: 'same:newPassword'
 }];
 
-class NewPasswordForm extends MobxReactForm {
+class AdminCreatedAccountCompletionForm extends MobxReactForm {
     onSuccess(form) {
         if(form.values().newPassword !== form.values().newPasswordConfirmation) {
             form.invalidate('Passwords do not match');
@@ -46,7 +46,7 @@ class NewPasswordForm extends MobxReactForm {
     }
 }
 
-const newPasswordForm = new NewPasswordForm({ fields }, { plugins });
+const newPasswordForm = new AdminCreatedAccountCompletionForm({ fields }, { plugins });
 
 export default observer(class extends React.Component {
 

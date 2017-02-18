@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './app/App';
 import Welcome from './app/screens/Welcome/index';
 import Login from './app/screens/Welcome/screens/Login/index';
-import NewPasswordRequired from './app/screens/Welcome/screens/Login/screens/NewPasswordRequired/index';
+import AdminCreatedAccountCompletion from './app/screens/Welcome/screens/Login/screens/AdminCreatedAccountCompletion/index';
 import Main from './app/screens/Welcome/screens/Login/screens/Main/index';
 import List from './app/screens/Welcome/screens/Login/screens/Main/screens/List/index';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -18,7 +18,7 @@ const authRequired = (nextState, replace) => !user.isLoggedIn ? replace('/login'
 const unauthRequired = (nextState, replace) => user.isLoggedIn ? replace('/main') : null;
 
 const newPasswordRequired = (nextState, replace) =>
-    !user.completeAdminCreatedAccountSignupRequired ? replace('/login') : unauthRequired(nextState, replace);
+    !user.adminCreatedAccountCompletionRequired ? replace('/login') : unauthRequired(nextState, replace);
 
 ReactDOM.render((
     <Router history={hashHistory}>
@@ -26,9 +26,9 @@ ReactDOM.render((
             <IndexRoute onEnter={unauthRequired} component={Welcome} />
             <Route path="/login" onEnter={unauthRequired} component={Login} />
             <Route
-                path="/newPasswordRequired"
+                path="/adminCreatedAccountCompletion"
                 onEnter={newPasswordRequired}
-                component={ (props) => (<NewPasswordRequired user={user} {...props}/>)} />
+                component={ (props) => (<AdminCreatedAccountCompletion user={user} {...props}/>)} />
             <Route
                 onEnter={authRequired}
                 component={ (props) => (<LoggedInHeader user={user} history={hashHistory} {...props} />) }

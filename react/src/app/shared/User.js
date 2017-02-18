@@ -12,7 +12,7 @@ const authenticationHandler = {
 
     setJWTToken: null,
 
-    setCompleteAdminCreatedAccountSignupRequired: null,
+    setAdminCreatedAccountCompletionRequired: null,
 
     onSuccess: function(result) {
         console.log('access token')
@@ -38,8 +38,8 @@ const authenticationHandler = {
     },
 
     newPasswordRequired: function(userAttributes, requiredAttributes) {
-        this.setCompleteAdminCreatedAccountSignupRequired(true);
-        hashHistory.push('/newPasswordRequired');
+        this.setAdminCreatedAccountCompletionRequired(true);
+        hashHistory.push('/adminCreatedAccountCompletion');
     }
 }
 
@@ -49,7 +49,7 @@ export default class {
 
     jwtToken = null;
 
-    completeAdminCreatedAccountSignupRequired = false;
+    adminCreatedAccountCompletionRequired = false;
 
     //use case 1
     signUp(username, password, preferredUsername, onSuccess, onFailure) {
@@ -132,8 +132,8 @@ export default class {
         authenticationHandler.setJWTToken = (jwtToken) => this.jwtToken = jwtToken;
         authenticationHandler.onSuccessCallback = onSuccessCallback;
         authenticationHandler.onFailureCallback = onFailureCallback;
-        authenticationHandler.setCompleteAdminCreatedAccountSignupRequired =
-            (required) => this.completeAdminCreatedAccountSignupRequired = required;
+        authenticationHandler.setAdminCreatedAccountCompletionRequired =
+            (required) => this.adminCreatedAccountCompletionRequired = required;
 
         this.cognitoUser.authenticateUser(
             new AuthenticationDetails({
@@ -149,8 +149,8 @@ export default class {
         authenticationHandler.setJWTToken = (jwtToken) => this.jwtToken = jwtToken;
         authenticationHandler.onSuccessCallback = onSuccessCallback;
         authenticationHandler.onFailureCallback = onFailureCallback;
-        authenticationHandler.setCompleteAdminCreatedAccountSignupRequired =
-            (required) => this.completeAdminCreatedAccountSignupRequired = required;
+        authenticationHandler.setAdminCreatedAccountCompletionRequired =
+            (required) => this.adminCreatedAccountCompletionRequired = required;
         this.cognitoUser.completeNewPasswordChallenge(newPassword, { email: email }, authenticationHandler);
     }
 
