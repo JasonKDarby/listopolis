@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "custom-react-scripts": "0.0.21"
+    "custom-react-scripts": "0.0.21",
+    "gh-pages": "^0.12.0"
   },
   "dependencies": {
     "amazon-cognito-identity-js": "^1.12.0",
@@ -24,6 +25,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
-  }
+    "test": "react-scripts test",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
+  },
+  "homepage": "https://jasonkdarby.github.io/listopolis"
 }

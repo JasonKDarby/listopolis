@@ -9,3 +9,7 @@ before_script:
   - yarn
 
 script: cd react && yarn && yarn test
+
+branches:
+  except:
+    - gh-pages
