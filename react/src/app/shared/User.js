@@ -2,8 +2,8 @@ import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetai
 import APICredentials from '../config/APICredentials';
 import { hashHistory } from 'react-router';
 
-//This is super sloppy, I know.  However, I don't know enough about 'this' to be able to pass
-// this to completeNewPasswordChallenge without going this way.  I want to change this very badly.
+//TODO: refactor, avoid using classes
+
 const authenticationHandler = {
 
     onSuccessCallback: null,
