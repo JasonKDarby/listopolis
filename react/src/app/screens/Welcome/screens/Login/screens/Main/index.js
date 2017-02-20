@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, Grid, Row, Col } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import YourLists from './components/YourLists';
 
 export default ({user}) => (
@@ -13,13 +12,6 @@ export default ({user}) => (
         <Row>
             <Col sm={4} smOffset={4}>
                 <YourLists user={user}/>
-            </Col>
-        </Row>
-        <Row>
-            <Col xs={12}>
-                <LinkContainer to="/list">
-                    <Button>Continue</Button>
-                </LinkContainer>
             </Col>
         </Row>
     </Grid>

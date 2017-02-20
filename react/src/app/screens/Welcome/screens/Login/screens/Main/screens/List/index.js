@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import List from './components/List';
 
 //TODO:  uhh, all of it
-export default () => (
+export default ({ params: { id }, user }) => (
     <Grid>
         <Row>
             <Col xs={12} className="text-center">
@@ -13,7 +13,7 @@ export default () => (
         </Row>
         <Row>
             <Col xs={12} sm={8} smOffset={2}>
-                <List/>
+                <List id={id} user={user} />
             </Col>
         </Row>
         <Row>

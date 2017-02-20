@@ -1,5 +1,6 @@
 import React from 'react';
 import { Panel, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
+import { Link } from 'react-router';
 import './YourLists.css';
 
 const Title = (
@@ -37,9 +38,22 @@ export default class YourLists extends React.Component {
     render() {
         return (
             <Panel header={Title}>
-                <ul>
-                    {this.state.lists.map(list => <li key={list.id}>{list.title}</li>)}
-                </ul>
+                {
+                    this.state.lists.length > 0 ?
+                        <ul>
+                            {
+                                this.state.lists.map(
+                                    list =>
+                                        <li key={list.id}>
+                                            <Link to={`/list/${list.id}`}>
+                                                <span>{list.title}</span>
+                                            </Link>
+                                        </li>
+                                )
+                            }
+                        </ul>
+                        : "There's nothing here."
+                }
             </Panel>
         );
     }

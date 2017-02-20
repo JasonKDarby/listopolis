@@ -34,7 +34,7 @@ ReactDOM.render((
                 component={ (props) => (<LoggedInHeader user={user} history={hashHistory} {...props} />) }
             >
                 <Route path="/main" component={Main} />
-                <Route path="/list" component={List} />
+                <Route path="/list/:id" component={List} />
             </Route>
         </Route>
     </Router>
