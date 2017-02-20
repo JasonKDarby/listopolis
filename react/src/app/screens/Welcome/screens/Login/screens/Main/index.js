@@ -3,7 +3,7 @@ import { Button, Grid, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import YourLists from './components/YourLists';
 
-export default () => (
+export default ({user}) => (
     <Grid>
         <Row>
             <Col xs={12}>
@@ -12,7 +12,7 @@ export default () => (
         </Row>
         <Row>
             <Col sm={4} smOffset={4}>
-                <YourLists/>
+                <YourLists user={user}/>
             </Col>
         </Row>
         <Row>

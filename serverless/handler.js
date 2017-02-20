@@ -18,6 +18,31 @@ export const helloLambda = (event, context, callback) => {
     callback(null, response)
 }
 
+export const lists = (event, context, callback) => {
+
+    console.log('event');
+    console.log(event);
+
+    console.log('userId');
+    console.log(context.identity);
+
+    const result = [{ id: 'dummy-id', title: 'Test list' }];
+
+    const response = {
+        statusCode: 200,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true
+        },
+        body: {
+            lists: result
+        }
+    };
+
+    callback(null, response);
+}
+
 export default {
-    helloLambda
+    helloLambda,
+    lists
 }

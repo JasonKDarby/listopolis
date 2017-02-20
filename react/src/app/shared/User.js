@@ -15,10 +15,8 @@ const authenticationHandler = {
     setAdminCreatedAccountCompletionRequired: null,
 
     onSuccess: function(result) {
-        console.log('access token')
-        console.log(result.getAccessToken().getJwtToken())
-        this.setJWTToken(result.getAccessToken().getJwtToken())
-        this.onSuccessCallback(result.getAccessToken().getJwtToken())
+        this.setJWTToken(result.getIdToken().getJwtToken())
+        this.onSuccessCallback(result.getIdToken().getJwtToken())
     },
 
     onFailure: function(error) {
@@ -112,6 +110,7 @@ export default class {
                     }
                     isLoggedIn = session.isValid();
                     this.cognitoUser = cognitoUser;
+                    this.jwtToken = session.getIdToken().getJwtToken();
                 });
             }
         }
