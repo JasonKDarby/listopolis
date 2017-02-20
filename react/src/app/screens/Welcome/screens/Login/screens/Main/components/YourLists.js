@@ -2,7 +2,6 @@ import React from 'react';
 import { Panel, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import './YourLists.css';
 
-
 const Title = (
     <ButtonToolbar>
         <ButtonGroup>
@@ -31,7 +30,7 @@ export default class YourLists extends React.Component {
             headers: headers,
             mode: 'cors'
         }).then((response) => response.json()).then(response => {
-            this.setState({ lists: response.body.lists });
+            this.setState({ lists: response.body });
         });
     }
 
