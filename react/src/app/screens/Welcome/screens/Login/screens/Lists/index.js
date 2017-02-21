@@ -6,7 +6,7 @@ export default ({user}) => (
     <Grid>
         <Row>
             <Col xs={12}>
-                <p>TEMPORARY MAIN PAGE</p>
+                <p>TEMPORARY LISTS PAGE</p>
             </Col>
         </Row>
         <Row>

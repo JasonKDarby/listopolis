@@ -26,7 +26,7 @@ class LoginForm extends MobxReactForm {
             form.values().username,
             form.values().password,
             () => {
-                hashHistory.push('/main')
+                hashHistory.push('/lists')
             },
             (error) => {
                 form.invalidate(error.message)

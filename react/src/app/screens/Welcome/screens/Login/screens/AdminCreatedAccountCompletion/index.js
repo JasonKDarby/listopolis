@@ -34,7 +34,7 @@ class AdminCreatedAccountCompletionForm extends MobxReactForm {
                 form.values().email,
                 () => {
                     this.user.completeAdminCreatedAccountSignupRequired = false;
-                    hashHistory.push('/main');
+                    hashHistory.push('/lists');
                 },
                 (error) => form.invalidate(error)
             );

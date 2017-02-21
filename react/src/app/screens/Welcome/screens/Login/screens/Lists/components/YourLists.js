@@ -45,7 +45,7 @@ export default class YourLists extends React.Component {
                                 this.state.lists.map(
                                     list =>
                                         <li key={list.id}>
-                                            <Link to={`/list/${list.id}`}>
+                                            <Link to={`/lists/${list.id}`}>
                                                 <span>{list.title}</span>
                                             </Link>
                                         </li>

@@ -18,7 +18,7 @@ export default ({ params: { id }, user }) => (
         </Row>
         <Row>
             <Col xs={12}>
-                <LinkContainer to="/main">
+                <LinkContainer to="/lists">
                     <Button>Continue</Button>
                 </LinkContainer>
             </Col>
