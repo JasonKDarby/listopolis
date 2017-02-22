@@ -1,6 +1,7 @@
 import React from 'react';
 import { Panel, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import { Link } from 'react-router';
+import { LinkContainer } from 'react-router-bootstrap';
 import './YourLists.css';
 
 const Title = (
@@ -9,7 +10,9 @@ const Title = (
             <span>Your lists</span>
         </ButtonGroup>
         <ButtonGroup className="pull-right">
-            <Button bsStyle="success" bsSize="xsmall">New list</Button>
+            <LinkContainer to="/createNewList">
+                <Button bsStyle="success" bsSize="xsmall">New list</Button>
+            </LinkContainer>
         </ButtonGroup>
     </ButtonToolbar>
 );

@@ -12,7 +12,7 @@ const fields = [{
     label: 'Email',
     placeholder: 'Email',
     rules: 'required|email|string|between:5,25'
-},{
+}, {
     name: 'newPassword',
     label: 'New password',
     placeholder: 'New password',

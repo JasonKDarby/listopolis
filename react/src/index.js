@@ -6,6 +6,7 @@ import Login from './app/screens/Welcome/screens/Login/index';
 import AdminCreatedAccountCompletion from './app/screens/Welcome/screens/Login/screens/AdminCreatedAccountCompletion/index';
 import Lists from './app/screens/Welcome/screens/Login/screens/Lists/index';
 import List from './app/screens/Welcome/screens/Login/screens/Lists/screens/List/index';
+import CreateNewList from './app/screens/Welcome/screens/Login/screens/Lists/screens/CreateNewList/index';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
@@ -35,6 +36,7 @@ ReactDOM.render((
             >
                 <Route path="/lists" component={Lists} />
                 <Route path="/lists/:id" component={List} />
+                <Route path="/createNewList" component={CreateNewList} />
             </Route>
         </Route>
     </Router>
