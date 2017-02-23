@@ -89,16 +89,38 @@ export default observer(class extends React.Component {
                                 <FormGroup>
                                     <Row>
                                         <Col xs={2} sm={1}>
-                                            {   createNewListForm.$('lines').fields.size === 1 ? null :
-                                                <ButtonGroup vertical>
-                                                    <Button type="button">
-                                                        <Glyphicon glyph="arrow-up"/>
-                                                    </Button>
-                                                    <Button type="button">
-                                                        <Glyphicon glyph="arrow-down"/>
-                                                    </Button>
-                                                </ButtonGroup>
-                                            }
+                                            <ButtonGroup vertical>
+                                                {
+                                                    index === 0 ||
+                                                        <Button type="button" onClick={() => {
+                                                            let lines = [];
+                                                            createNewListForm.$('lines').fields
+                                                                .forEach(field => lines.push(field.value));
+                                                            let line = lines.splice(index-1, 1);
+                                                            lines.splice(index, 0, line);
+                                                            createNewListForm.set({
+                                                                lines: lines
+                                                            });
+                                                        }}>
+                                                            <Glyphicon glyph="arrow-up"/>
+                                                        </Button>
+                                                }
+                                                {
+                                                    index === createNewListForm.$('lines').fields.size-1 ||
+                                                        <Button type="button" onClick={() => {
+                                                            let lines = [];
+                                                            createNewListForm.$('lines').fields
+                                                                .forEach(field => lines.push(field.value));
+                                                            let line = lines.splice(index+1, 1);
+                                                            lines.splice(index, 0, line);
+                                                            createNewListForm.set({
+                                                                lines: lines
+                                                            });
+                                                        }}>
+                                                            <Glyphicon glyph="arrow-down"/>
+                                                        </Button>
+                                                }
+                                            </ButtonGroup>
                                         </Col>
                                         <Col xs={8} sm={10}>
                                             <FormControl componentClass="textarea" {...line.bind()} />
@@ -110,8 +132,7 @@ export default observer(class extends React.Component {
                                                 </Button>
                                                 {
                                                     /*if there's only one field we don't want to be able to delete it*/
-                                                    createNewListForm.$('lines').fields.size === 1 ?
-                                                    null :
+                                                    createNewListForm.$('lines').fields.size === 1 ||
                                                     <Button type="button" onClick={line.onDel}>
                                                         <Glyphicon glyph="remove" />
                                                     </Button>
