@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, Button, Col, Grid, Row } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, Button, ButtonGroup, Glyphicon, Col, Grid, Row } from 'react-bootstrap'
 import { observer } from 'mobx-react';
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
@@ -62,47 +62,95 @@ export default observer(class extends React.Component {
     render() {
         return (
             <Grid>
-                <Row>
-                    <Col xs={12}>
-                        <Form onSubmit={createNewListForm.onSubmit} horizontal>
+                <Form onSubmit={createNewListForm.onSubmit} horizontal>
+                    <Row>
+                        <Col xs={12}>
                             <p>{createNewListForm.error}</p>
-                            <Col sm={8} smOffset={2}>
-                                {createNewListForm.$('title').label}
-                            </Col>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm={8} smOffset={2}>
+                            {createNewListForm.$('title').label}
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm={8} smOffset={2}>
                             <FormGroup>
-                                <Col sm={8} smOffset={2}>
-                                    <FormControl {...createNewListForm.$('title').bind()} />
-                                </Col>
+                                <FormControl {...createNewListForm.$('title').bind()} />
                             </FormGroup>
-                            <br/>
-                            { createNewListForm.$('lines').map(
-                                line =>
-                                    <FormGroup key={line.key}>
-                                        <Col sm={8} smOffset={2}>
-                                            {/*TODO: I want this to auto grow*/}
-                                            <FormControl componentClass="textarea" {...line.bind()} />
-                                            <Button type="button" onClick={line.onClear}>clear</Button>
-                                            <Button type="button" onClick={line.onDel}>delete</Button>
+                        </Col>
+                    </Row>
+                    <br/>
+                    { createNewListForm.$('lines').map(
+                        (line, index) =>
+                        <Row key={line.key}>
+                            <Col sm={10} smOffset={1}>
+                                {/*TODO: I want this to auto grow*/}
+                                <FormGroup>
+                                    <Row>
+                                        <Col xs={2} sm={1}>
+                                            {   createNewListForm.$('lines').fields.size === 1 ? null :
+                                                <ButtonGroup vertical>
+                                                    <Button type="button">
+                                                        <Glyphicon glyph="arrow-up"/>
+                                                    </Button>
+                                                    <Button type="button">
+                                                        <Glyphicon glyph="arrow-down"/>
+                                                    </Button>
+                                                </ButtonGroup>
+                                            }
                                         </Col>
-                                    </FormGroup>
-                            )}
-                            <br/>
+                                        <Col xs={8} sm={10}>
+                                            <FormControl componentClass="textarea" {...line.bind()} />
+                                        </Col>
+                                        <Col xs={2} sm={1}>
+                                            <ButtonGroup vertical>
+                                                <Button type="button" onClick={line.onClear}>
+                                                    <Glyphicon glyph="erase" />
+                                                </Button>
+                                                {
+                                                    /*if there's only one field we don't want to be able to delete it*/
+                                                    createNewListForm.$('lines').fields.size === 1 ?
+                                                    null :
+                                                    <Button type="button" onClick={line.onDel}>
+                                                        <Glyphicon glyph="remove" />
+                                                    </Button>
+                                                }
+                                            </ButtonGroup>
+                                        </Col>
+                                    </Row>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Row>
+                                        <Col xs={10} xsOffset={1} className="text-center">
+                                            <Button type="button" bsSize="xsmall" onClick={() => {
+                                                let lines = [];
+                                                createNewListForm.$('lines').fields
+                                                    .forEach(field => lines.push(field.value));
+                                                lines.splice(index+1, 0, '');
+                                                createNewListForm.update({
+                                                    lines: lines
+                                                });
+                                            }}>
+                                                <Glyphicon glyph="plus" />
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                    )}
+                    <br/>
+                    <Row>
+                        <Col smOffset={2} sm={10}>
                             <FormGroup>
-                                <Col sm={8} smOffset={2}>
-                                    <Button type="button" onClick={createNewListForm.$('lines').onAdd}>add</Button>
-                                </Col>
+                                <Button type="submit" onClick={createNewListForm.onSubmit}>
+                                    Create new list
+                                </Button>
                             </FormGroup>
-                            <br/>
-                            <FormGroup>
-                                <Col smOffset={2} sm={10}>
-                                    <Button type="submit" onClick={createNewListForm.onSubmit}>
-                                        Create new list
-                                    </Button>
-                                </Col>
-                            </FormGroup>
-                        </Form>
-                    </Col>
-                </Row>
+                        </Col>
+                    </Row>
+                </Form>
             </Grid>
         );
     }
