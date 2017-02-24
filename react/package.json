@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "amazon-cognito-identity-js": "^1.12.0",
+    "autosize": "^3.0.20",
     "bootstrap": "^3.3.7",
     "mobx": "^3.0.2",
     "mobx-react": "^4.1.0",
