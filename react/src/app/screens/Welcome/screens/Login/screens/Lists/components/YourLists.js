@@ -3,6 +3,7 @@ import { Panel, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 import './YourLists.css';
+import { backendBaseUrl } from '../../../../../../../config/APICredentials';
 
 const Title = (
     <ButtonToolbar>
@@ -29,7 +30,7 @@ export default class YourLists extends React.Component {
         let headers = new Headers({
             'Authorization': this.props.user.jwtToken
         });
-        fetch('https://vaqyz9vz60.execute-api.us-east-1.amazonaws.com/dev/lists', {
+        fetch(`${backendBaseUrl}/lists`, {
             method: 'GET',
             headers: headers,
             mode: 'cors'

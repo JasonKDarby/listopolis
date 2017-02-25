@@ -1,4 +1,5 @@
 import React from 'react';
+import { backendBaseUrl } from '../../../../../../../../../config/APICredentials';
 
 export default class List extends React.Component {
 
@@ -11,7 +12,7 @@ export default class List extends React.Component {
         let headers = new Headers({
             'Authorization': this.props.user.jwtToken
         });
-        fetch(`https://vaqyz9vz60.execute-api.us-east-1.amazonaws.com/dev/lists/${this.props.id}`, {
+        fetch(`${backendBaseUrl}/lists/${this.props.id}`, {
             method: 'GET',
             headers: headers,
             mode: 'cors'

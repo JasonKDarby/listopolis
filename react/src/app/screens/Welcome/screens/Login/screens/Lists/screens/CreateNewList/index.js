@@ -6,6 +6,7 @@ import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
 import './index.css';
 import autosize from 'autosize';
+import { backendBaseUrl } from '../../../../../../../../config/APICredentials';
 
 const plugins = { dvr: validatorjs };
 
@@ -48,7 +49,7 @@ class CreateNewListForm extends MobxReactForm {
             'Content-Type': 'application/json',
             'Authorization': this.user.jwtToken
         });
-        fetch(`https://vaqyz9vz60.execute-api.us-east-1.amazonaws.com/dev/lists`, {
+        fetch(`${backendBaseUrl}/lists`, {
             method: 'POST',
             headers: headers,
             mode: 'cors',

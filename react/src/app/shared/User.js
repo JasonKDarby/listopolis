@@ -1,5 +1,5 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import APICredentials from '../config/APICredentials';
+import { cognitoUserPoolId, cognitoAppClientId } from '../config/APICredentials';
 import { hashHistory } from 'react-router';
 
 //TODO: refactor, avoid using classes
@@ -50,8 +50,8 @@ export default class {
     //use case 1
     signUp(username, password, preferredUsername, onSuccess, onFailure) {
         let userPool = new CognitoUserPool({
-            UserPoolId: APICredentials.cognitoUserPoolId,
-            ClientId: APICredentials.cognitoAppClientId
+            UserPoolId: cognitoUserPoolId,
+            ClientId: cognitoAppClientId
         });
 
         let attributeList = [];
@@ -91,8 +91,8 @@ export default class {
             }
         } else {
             let userPool = new CognitoUserPool({
-                UserPoolId : APICredentials.cognitoUserPoolId,
-                ClientId : APICredentials.cognitoAppClientId
+                UserPoolId : cognitoUserPoolId,
+                ClientId : cognitoAppClientId
             });
             let cognitoUser = userPool.getCurrentUser();
 
@@ -116,8 +116,8 @@ export default class {
         this.cognitoUser = new CognitoUser({
             Username: username,
             Pool: new CognitoUserPool({
-                UserPoolId: APICredentials.cognitoUserPoolId,
-                ClientId: APICredentials.cognitoAppClientId
+                UserPoolId: cognitoUserPoolId,
+                ClientId: cognitoAppClientId
             })
         });
 
