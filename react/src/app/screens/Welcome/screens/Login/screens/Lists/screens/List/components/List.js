@@ -1,5 +1,5 @@
 import React from 'react';
-import { backendBaseUrl } from '../../../../../../../../../config/APICredentials';
+import { getLists } from '../../../../../../../../../shared/ListAPI';
 
 export default class List extends React.Component {
 
@@ -9,16 +9,7 @@ export default class List extends React.Component {
     }
 
     componentDidMount() {
-        let headers = new Headers({
-            'Authorization': this.props.user.jwtToken
-        });
-        fetch(`${backendBaseUrl}/lists/${this.props.id}`, {
-            method: 'GET',
-            headers: headers,
-            mode: 'cors'
-        }).then((response) => response.json()).then(response => {
-            this.setState({ list: response.body });
-        });
+        getLists(this.props.user.jwtToken, response => this.setState({ list: response.body }));
     }
 
     render() {
