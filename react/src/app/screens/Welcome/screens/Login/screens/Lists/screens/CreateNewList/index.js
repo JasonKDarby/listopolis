@@ -6,7 +6,6 @@ import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
 import './index.css';
 import autosize from 'autosize';
-import { backendBaseUrl } from '../../../../../../../../config/APICredentials';
 import { createList } from '../../../../../../../../shared/ListAPI';
 
 const plugins = { dvr: validatorjs };
