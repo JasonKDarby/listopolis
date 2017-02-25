@@ -20,8 +20,6 @@ const authenticationHandler = {
     },
 
     onFailure: function(error) {
-        console.log('authentication error')
-        console.log(JSON.stringify(error))
         this.onFailureCallback(error)
     },
 
@@ -69,12 +67,8 @@ export default class {
 
         userPool.signUp(username, password, attributeList, null, (error, result) => {
             if(error) {
-                console.log('signUp failure error');
-                console.log(error);
                 onFailure(error);
             } else {
-                console.log('signUp result');
-                console.log(JSON.stringify(result));
                 this.cognitoUser = result.user;
                 onSuccess();
             }

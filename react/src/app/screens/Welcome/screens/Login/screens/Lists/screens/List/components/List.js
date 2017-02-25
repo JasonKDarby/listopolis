@@ -11,7 +11,7 @@ export default class List extends React.Component {
         let headers = new Headers({
             'Authorization': this.props.user.jwtToken
         });
-        fetch(`https://wne2ppk41m.execute-api.us-east-1.amazonaws.com/dev/lists/${this.props.id}`, {
+        fetch(`https://vaqyz9vz60.execute-api.us-east-1.amazonaws.com/dev/lists/${this.props.id}`, {
             method: 'GET',
             headers: headers,
             mode: 'cors'
@@ -26,7 +26,7 @@ export default class List extends React.Component {
                 <div>
                     <p className="text-center">{this.state.list.title}</p>
                     <ol>
-                        {this.state.list.items.map((item, index) => <li key={index}>{item}</li>)}
+                        {this.state.list.lines.map((item, index) => <li key={index}>{item}</li>)}
                     </ol>
                 </div>
             );

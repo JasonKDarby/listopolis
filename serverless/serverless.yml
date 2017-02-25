@@ -1,6 +1,6 @@
 custom: ${file(./env.yml)}
 
-service: listopolis
+service: listopolis-0
 
 plugins:
   - serverless-webpack
@@ -32,8 +32,18 @@ provider:
   memorySize: 128
 
 functions:
-  lists:
-    handler: handler.lists
+  create:
+    handler: handler.create
+    events:
+      - http:
+          path: lists
+          method: post
+          integration: lambda
+          cors: true
+          authorizer:
+            arn: ${self:custom.authorizerArn}
+  list:
+    handler: handler.list
     events:
       - http:
           path: lists
@@ -64,11 +74,29 @@ resources:
           -
             AttributeName: id
             AttributeType: S
+          -
+            AttributeName: userId
+            AttributeType: S
         KeySchema:
           -
             AttributeName: id
             KeyType: HASH
+          -
+            AttributeName: userId
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        LocalSecondaryIndexes:
+          -
+            IndexName: 'userId-index'
+            KeySchema:
+              -
+                AttributeName: id
+                KeyType: HASH
+              -
+                AttributeName: userId
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL

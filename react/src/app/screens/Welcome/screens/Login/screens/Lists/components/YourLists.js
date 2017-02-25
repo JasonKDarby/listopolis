@@ -29,7 +29,7 @@ export default class YourLists extends React.Component {
         let headers = new Headers({
             'Authorization': this.props.user.jwtToken
         });
-        fetch('https://wne2ppk41m.execute-api.us-east-1.amazonaws.com/dev/lists', {
+        fetch('https://vaqyz9vz60.execute-api.us-east-1.amazonaws.com/dev/lists', {
             method: 'GET',
             headers: headers,
             mode: 'cors'
@@ -42,7 +42,7 @@ export default class YourLists extends React.Component {
         return (
             <Panel header={Title}>
                 {
-                    this.state.lists.length > 0 ?
+                    this.state.lists && this.state.lists.length > 0 ?
                         <ul>
                             {
                                 this.state.lists.map(

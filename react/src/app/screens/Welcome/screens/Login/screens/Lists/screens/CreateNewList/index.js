@@ -1,6 +1,7 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Button, ButtonGroup, Glyphicon, Col, Grid, Row } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Button, ButtonGroup, Glyphicon, Col, Grid, Row, Alert } from 'react-bootstrap'
 import { observer } from 'mobx-react';
+import { hashHistory } from 'react-router'
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
 import './index.css';
@@ -26,7 +27,6 @@ const labels = {
 
 const placeholders = {
     'title': 'Title',
-    'lines': 'New lines',
     'lines[]': 'New line'
 };
 
@@ -37,18 +37,51 @@ const rules = {
 };
 
 class CreateNewListForm extends MobxReactForm {
+
+    errorMessages = [];
+
     onSuccess(form) {
-        console.log('form');
-        console.log(form);
-        console.log('form.values');
-        console.log(form.values());
+        this.errorMessages = [];
+        let createRequestData = form.values();
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': this.user.jwtToken
+        });
+        fetch(`https://vaqyz9vz60.execute-api.us-east-1.amazonaws.com/dev/lists`, {
+            method: 'POST',
+            headers: headers,
+            mode: 'cors',
+            body: JSON.stringify(createRequestData)
+        }).then((response) => response.json()).then(response => {
+            console.log('response');
+            console.log(response);
+            hashHistory.push(`/lists/${response.body.id}`);
+        });
     }
     onError(form) {
-        console.log('form');
-        console.log(form);
-        console.log('errors');
-        console.log(form.errors());
-        form.invalidate('Error!');
+        this.errorMessages = [];
+        if(form.errors().title) {
+            if(form.errors().title === "The Title field is required.") {
+                this.errorMessages.push(form.errors().title);//Don't do anything, this message is fine.
+            } else if(form.errors().title === "The Title field must be between 1 and 140.") {
+                this.errorMessages.push(`The Title must be between 1 and 140 characters.`);
+            } else {
+                this.errorMessages.push(`Error at title: ${form.errors().title}`);
+            }
+        }
+        form.errors().lines.forEach((lineError, index) => {
+            if(lineError) {
+                if(lineError === "The New line field is required.") {
+                    this.errorMessages.push(`Line ${index} can't be empty.`);
+                } else if(lineError === "The New line field must be between 1 and 140.") {
+                    this.errorMessages.push(`Line ${index} must be between 1 and 140 characters.`);
+                } else {
+                    this.errorMessages.push(`Error at line ${index}: ${lineError}`);
+                }
+            }
+        });
+        form.invalidate('There were errors with your submission.');
     }
 }
 
@@ -65,8 +98,17 @@ export default observer(class extends React.Component {
             <Grid>
                 <Form onSubmit={createNewListForm.onSubmit} horizontal>
                     <Row>
-                        <Col xs={12}>
-                            <p>{createNewListForm.error}</p>
+                        <Col xs={12} className="text-center">
+                            <p><strong>{createNewListForm.error}</strong></p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm={8} smOffset={2} className="text-center">
+                            {
+                                createNewListForm.errorMessages.map(
+                                    (errorMessage, index) =>
+                                        <Alert bsStyle="warning" key={index}>{errorMessage}</Alert>)
+                            }
                         </Col>
                     </Row>
                     <Row>
