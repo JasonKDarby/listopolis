@@ -3,7 +3,7 @@ import { Panel, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 import './YourLists.css';
-import { backendBaseUrl } from '../../../../../../../config/APICredentials';
+import { getLists } from '../../../../../../../shared/ListAPI';
 
 const Title = (
     <ButtonToolbar>
@@ -27,16 +27,7 @@ export default class YourLists extends React.Component {
     }
 
     componentDidMount() {
-        let headers = new Headers({
-            'Authorization': this.props.user.jwtToken
-        });
-        fetch(`${backendBaseUrl}/lists`, {
-            method: 'GET',
-            headers: headers,
-            mode: 'cors'
-        }).then((response) => response.json()).then(response => {
-            this.setState({ lists: response.body });
-        });
+        getLists(this.props.user.jwtToken, response => this.setState({ lists: response.body}));
     }
 
     render() {

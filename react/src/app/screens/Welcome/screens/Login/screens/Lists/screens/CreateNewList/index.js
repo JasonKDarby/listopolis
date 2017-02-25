@@ -7,6 +7,7 @@ import validatorjs from 'validatorjs';
 import './index.css';
 import autosize from 'autosize';
 import { backendBaseUrl } from '../../../../../../../../config/APICredentials';
+import { createList } from '../../../../../../../../shared/ListAPI';
 
 const plugins = { dvr: validatorjs };
 
@@ -44,17 +45,8 @@ class CreateNewListForm extends MobxReactForm {
     onSuccess(form) {
         this.errorMessages = [];
         let createRequestData = form.values();
-        let headers = new Headers({
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': this.user.jwtToken
-        });
-        fetch(`${backendBaseUrl}/lists`, {
-            method: 'POST',
-            headers: headers,
-            mode: 'cors',
-            body: JSON.stringify(createRequestData)
-        }).then((response) => response.json()).then(response => {
+
+        createList(this.user.jwtToken, createRequestData, response => {
             console.log('response');
             console.log(response);
             hashHistory.push(`/lists/${response.body.id}`);

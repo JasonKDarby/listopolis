@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLists } from '../../../../../../../../../shared/ListAPI';
+import { getListById } from '../../../../../../../../../shared/ListAPI';
 
 export default class List extends React.Component {
 
@@ -9,7 +9,7 @@ export default class List extends React.Component {
     }
 
     componentDidMount() {
-        getLists(this.props.user.jwtToken, response => this.setState({ list: response.body }));
+        getListById(this.props.user.jwtToken, this.props.id, response => this.setState({ list: response.body }));
     }
 
     render() {
