@@ -19,24 +19,20 @@ export default class List extends React.Component {
     }
 
     render() {
-        if(this.state.list) {
-            return (
-                <div>
-                    <h1 className="text-center">{this.state.list.title}</h1>
-                    {
-                        this.state.list ?
-                            <ol>
-                                { this.state.list.lines.map((item, index) => <li key={index}>{item}</li>) }
-                            </ol>
-                            : this.state.loading ? 'Loading...' : "There's nothing here."
-                    }
-                </div>
-            );
-        } else {
-            return (
-                <div><span>loading...</span></div>
-            );
-        }
+        return (
+            <div>
+                { !this.state.list || <h1 className="text-center">{this.state.list.title}</h1> }
+                {
+                    this.state.list ?
+                        <ol>
+                            { this.state.list.lines.map((item, index) => <li key={index}>{item}</li>) }
+                        </ol>
+                        : this.state.loading ?
+                            <span>Loading...</span>
+                            : <span>There's nothing here.</span>
+                }
+            </div>
+        );
     }
 
 }

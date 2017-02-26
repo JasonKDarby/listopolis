@@ -55,7 +55,9 @@ export default class YourLists extends React.Component {
                                 )
                             }
                         </ul>
-                        : this.state.loading ? 'Loading...' : "There's nothing here."
+                        : this.state.loading ?
+                            <span>Loading...</span>
+                            : <span>There's nothing here.</span>
                 }
             </Panel>
         );
