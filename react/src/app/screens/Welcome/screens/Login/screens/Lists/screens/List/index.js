@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button, Grid, Row, Col } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import List from './components/List';
 
 //TODO:  uhh, all of it
 export default ({ params: { id }, user }) => (
-    <Grid>
+    <div>
         <Row>
             <Col xs={12} className="text-center">
                 <p>TEMPORARY LIST PAGE</p>
@@ -23,5 +23,5 @@ export default ({ params: { id }, user }) => (
                 </LinkContainer>
             </Col>
         </Row>
-    </Grid>
+    </div>
 );

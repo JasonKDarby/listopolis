@@ -1,10 +1,10 @@
 import React from 'react';
-import { Grid, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import LoginForm from './components/LoginForm';
 import HeaderLogo from './components/HeaderLogo';
 
 export default () => (
-    <Grid>
+    <div>
         <Row>
             <Col xs={12} className="text-center">
                 <HeaderLogo/>
@@ -15,5 +15,5 @@ export default () => (
                 <LoginForm/>
             </Col>
         </Row>
-    </Grid>
+    </div>
 );

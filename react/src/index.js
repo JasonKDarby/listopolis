@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { user } from './app/shared/Store';
 import LoggedInHeader from './app/screens/Welcome/screens/Login/screens/Lists/shared/LoggedInHeader';
+import LoggedOutHeader from './app/screens/Welcome/shared/LoggedOutHeader';
 
 //Not really a fan of using null here but whatever
 const authRequired = (nextState, replace) => !user.isLoggedIn ? replace('/login') : null;
@@ -25,11 +26,13 @@ ReactDOM.render((
     <Router history={hashHistory}>
         <Route path="/" component={App}>
             <IndexRoute onEnter={unauthRequired} component={Welcome} />
-            <Route path="/login" onEnter={unauthRequired} component={Login} />
-            <Route
-                path="/adminCreatedAccountCompletion"
-                onEnter={newPasswordRequired}
-                component={ (props) => (<AdminCreatedAccountCompletion user={user} {...props}/>)} />
+            <Route onEnter={unauthRequired} component={ (props) => (<LoggedOutHeader {...props} />) } >
+                <Route path="/login" component={Login} />
+                <Route
+                    path="/adminCreatedAccountCompletion"
+                    onEnter={newPasswordRequired}
+                    component={ (props) => (<AdminCreatedAccountCompletion user={user} {...props}/>)} />
+            </Route>
             <Route
                 onEnter={authRequired}
                 component={ (props) => (<LoggedInHeader user={user} history={hashHistory} {...props} />) }

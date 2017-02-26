@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
+import { Navbar, Button, ButtonGroup, ButtonToolbar, Grid } from 'react-bootstrap';
 
 export default ({ children, user, history }) => (
     <div>
@@ -20,6 +20,8 @@ export default ({ children, user, history }) => (
                 </Navbar.Form>
             </Navbar.Collapse>
         </Navbar>
-        {React.cloneElement(children, { user: user })}
+        <Grid>
+            {React.cloneElement(children, { user: user })}
+        </Grid>
     </div>
 );

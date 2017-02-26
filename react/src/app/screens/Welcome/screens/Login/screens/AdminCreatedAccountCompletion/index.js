@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, Checkbox, Button, Col, Grid, Row } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, Checkbox, Button, Col, Row } from 'react-bootstrap'
 import { observer } from 'mobx-react'
 import MobxReactForm from 'mobx-react-form'
 import validatorjs from 'validatorjs'
@@ -56,7 +56,7 @@ export default observer(class extends React.Component {
 
     render() {
         return (
-            <Grid>
+            <div>
                 <Row>
                     <Col xs={12}>
                         <Form onSubmit={newPasswordForm.onSubmit} horizontal>
@@ -101,7 +101,7 @@ export default observer(class extends React.Component {
                         </Form>
                     </Col>
                 </Row>
-            </Grid>
+            </div>
         )
     }
 });

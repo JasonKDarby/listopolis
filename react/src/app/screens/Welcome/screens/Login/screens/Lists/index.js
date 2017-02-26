@@ -1,9 +1,9 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import YourLists from './components/YourLists';
 
 export default ({user}) => (
-    <Grid>
+    <div>
         <Row>
             <Col xs={12}>
                 <p>TEMPORARY LISTS PAGE</p>
@@ -14,5 +14,5 @@ export default ({user}) => (
                 <YourLists user={user}/>
             </Col>
         </Row>
-    </Grid>
+    </div>
 );

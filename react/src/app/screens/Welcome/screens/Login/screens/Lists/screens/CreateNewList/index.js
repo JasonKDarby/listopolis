@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Button, ButtonGroup, Glyphicon, Col, Grid, Row, Alert } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Button, ButtonGroup, Glyphicon, Col, Row, Alert } from 'react-bootstrap'
 import { observer } from 'mobx-react';
 import { hashHistory } from 'react-router'
 import MobxReactForm from 'mobx-react-form';
@@ -87,7 +87,7 @@ export default observer(class extends React.Component {
 
     render() {
         return (
-            <Grid>
+            <div>
                 <Form onSubmit={createNewListForm.onSubmit} horizontal>
                     <Row>
                         <Col xs={12} className="text-center">
@@ -224,7 +224,7 @@ export default observer(class extends React.Component {
                         </Col>
                     </Row>
                 </Form>
-            </Grid>
+            </div>
         );
     }
 
