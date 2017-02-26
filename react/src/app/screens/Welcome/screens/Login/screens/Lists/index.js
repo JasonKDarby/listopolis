@@ -5,7 +5,7 @@ import YourLists from './components/YourLists';
 export default ({user}) => (
     <div>
         <Row>
-            <Col sm={4} smOffset={4}>
+            <Col sm={8} smOffset={2}>
                 <YourLists user={user}/>
             </Col>
         </Row>

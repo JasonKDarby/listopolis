@@ -23,11 +23,19 @@ export default class YourLists extends React.Component {
 
     constructor() {
         super();
-        this.state = { lists: [] };
+        this.state = {
+            lists: [],
+            loading: true,
+        };
     }
 
     componentDidMount() {
-        getLists(this.props.user.jwtToken, response => this.setState({ lists: response.body}));
+        getLists(this.props.user.jwtToken, response => {
+            this.setState({
+                lists: response.body,
+                loading: false
+            });
+        });
     }
 
     render() {
@@ -47,7 +55,7 @@ export default class YourLists extends React.Component {
                                 )
                             }
                         </ul>
-                        : "There's nothing here."
+                        : this.state.loading ? 'Loading...' : "There's nothing here."
                 }
             </Panel>
         );

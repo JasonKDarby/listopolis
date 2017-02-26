@@ -5,11 +5,17 @@ export default class List extends React.Component {
 
     constructor() {
         super();
-        this.state = { list: null }
+        this.state = {
+            list: null,
+            loading: true
+        };
     }
 
     componentDidMount() {
-        getListById(this.props.user.jwtToken, this.props.id, response => this.setState({ list: response.body }));
+        getListById(this.props.user.jwtToken, this.props.id, response => this.setState({
+            list: response.body,
+            loading: false
+        }));
     }
 
     render() {
@@ -17,9 +23,15 @@ export default class List extends React.Component {
             return (
                 <div>
                     <p className="text-center">{this.state.list.title}</p>
-                    <ol>
-                        {this.state.list.lines.map((item, index) => <li key={index}>{item}</li>)}
-                    </ol>
+
+                        {
+                            this.state.list ?
+                                <ol>
+                                    { this.state.list.lines.map((item, index) => <li key={index}>{item}</li>) }
+                                </ol>
+                                : this.state.loading ? 'Loading...' : "There's nothing here."
+                        }
+
                 </div>
             );
         } else {
