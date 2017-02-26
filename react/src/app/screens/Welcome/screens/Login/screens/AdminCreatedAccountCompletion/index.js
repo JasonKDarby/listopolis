@@ -88,11 +88,6 @@ export default observer(class extends React.Component {
                             </FormGroup>
                             <FormGroup>
                                 <Col smOffset={2} sm={10}>
-                                    <Checkbox>Remember me</Checkbox>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup>
-                                <Col smOffset={2} sm={10}>
                                     <Button type="submit" onClick={newPasswordForm.onSubmit}>
                                         Sign in
                                     </Button>
