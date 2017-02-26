@@ -23,7 +23,6 @@ export default class List extends React.Component {
             return (
                 <div>
                     <p className="text-center">{this.state.list.title}</p>
-
                         {
                             this.state.list ?
                                 <ol>
@@ -31,7 +30,6 @@ export default class List extends React.Component {
                                 </ol>
                                 : this.state.loading ? 'Loading...' : "There's nothing here."
                         }
-
                 </div>
             );
         } else {
