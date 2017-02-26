@@ -15,5 +15,10 @@ export default () => (
                 <LoginForm/>
             </Col>
         </Row>
+        <Row>
+            <Col xs={12} md={6} mdOffset={3} className="text-center">
+                <span><strong>Note:</strong> usernames are case sensitive.</span>
+            </Col>
+        </Row>
     </div>
 );
