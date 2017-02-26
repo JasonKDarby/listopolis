@@ -1,12 +1,13 @@
 import React from 'react';
 import { Navbar, Button, ButtonGroup, ButtonToolbar, Grid } from 'react-bootstrap';
+import { Link } from 'react-router';
 
 export default ({ children, user, history }) => (
     <div>
         <Navbar>
             <Navbar.Header>
                 <Navbar.Brand>
-                    <a href="/"><span className="glyphicon glyphicon-list-alt"/> Listopolis</a>
+                    <Link to="/"><span className="glyphicon glyphicon-list-alt"/> Listopolis</Link>
                 </Navbar.Brand>
                 <Navbar.Toggle />
             </Navbar.Header>
