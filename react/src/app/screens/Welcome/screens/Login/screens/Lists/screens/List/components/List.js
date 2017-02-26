@@ -22,14 +22,14 @@ export default class List extends React.Component {
         if(this.state.list) {
             return (
                 <div>
-                    <p className="text-center">{this.state.list.title}</p>
-                        {
-                            this.state.list ?
-                                <ol>
-                                    { this.state.list.lines.map((item, index) => <li key={index}>{item}</li>) }
-                                </ol>
-                                : this.state.loading ? 'Loading...' : "There's nothing here."
-                        }
+                    <h1 className="text-center">{this.state.list.title}</h1>
+                    {
+                        this.state.list ?
+                            <ol>
+                                { this.state.list.lines.map((item, index) => <li key={index}>{item}</li>) }
+                            </ol>
+                            : this.state.loading ? 'Loading...' : "There's nothing here."
+                    }
                 </div>
             );
         } else {
