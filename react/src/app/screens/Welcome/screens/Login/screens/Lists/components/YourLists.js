@@ -12,7 +12,7 @@ const Title = (
         </ButtonGroup>
         <ButtonGroup className="pull-right">
             <LinkContainer to="/createNewList">
-                <Button bsStyle="success" bsSize="xsmall">New list</Button>
+                <Button bsStyle="success" bsSize="small">New list</Button>
             </LinkContainer>
         </ButtonGroup>
     </ButtonToolbar>
@@ -49,7 +49,7 @@ export default class YourLists extends React.Component {
                                     list =>
                                         <li key={list.id}>
                                             <Link to={`/lists/${list.id}`}>
-                                                <span>{list.title}</span>
+                                                <h4>{list.title}</h4>
                                             </Link>
                                         </li>
                                 )

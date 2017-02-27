@@ -1,4 +1,13 @@
 import { backendBaseUrl } from '../config/APICredentials';
+import { hashHistory } from 'react-router';
+
+const filterErrors = (response, successCallback) => {
+    if(response.statusCode === 401) {
+        hashHistory.push('/');
+    } else {
+        successCallback(response);
+    }
+};
 
 export const createList = (authToken, createRequestData, callback) => {
 
@@ -14,7 +23,7 @@ export const createList = (authToken, createRequestData, callback) => {
         mode: 'cors',
         body: JSON.stringify(createRequestData)
     }).then((response) => response.json()).then(response => {
-        callback(response);
+        filterErrors(response, callback);
     });
 };
 
@@ -29,7 +38,7 @@ export const getLists = (authToken, callback) => {
         headers: headers,
         mode: 'cors'
     }).then((response) => response.json()).then(response => {
-        callback(response);
+        filterErrors(response, callback);
     });
 };
 
@@ -44,6 +53,6 @@ export const getListById = (authToken, id, callback) => {
         headers: headers,
         mode: 'cors'
     }).then((response) => response.json()).then(response => {
-        callback(response);
+        filterErrors(response, callback);
     });
 };
