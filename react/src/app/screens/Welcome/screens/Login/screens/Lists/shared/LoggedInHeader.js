@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Button, ButtonGroup, ButtonToolbar, Grid } from 'react-bootstrap';
+import { Navbar, Button, ButtonGroup, ButtonToolbar, Grid, Glyphicon } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 export default ({ children, user, history }) => (
@@ -7,7 +7,7 @@ export default ({ children, user, history }) => (
         <Navbar>
             <Navbar.Header>
                 <Navbar.Brand>
-                    <Link to="/"><span className="glyphicon glyphicon-list-alt"/> Listopolis</Link>
+                    <Link to="/"><Glyphicon glyph="list-alt"/> Listopolis</Link>
                 </Navbar.Brand>
                 <Navbar.Toggle />
             </Navbar.Header>
@@ -22,7 +22,7 @@ export default ({ children, user, history }) => (
             </Navbar.Collapse>
         </Navbar>
         <Grid>
-            {React.cloneElement(children, { user: user })}
+            {React.cloneElement(children, { user: user, history: history })}
         </Grid>
     </div>
 );
