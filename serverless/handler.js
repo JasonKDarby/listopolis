@@ -8,7 +8,7 @@ const corsHeaders = {
     'Access-Control-Allow-Credentials': true
 };
 
-export const create = (event, context, callback) => {
+export const createList = (event, context, callback) => {
 
     const timestamp = new Date().getTime();
     const data = event.body;
@@ -16,7 +16,7 @@ export const create = (event, context, callback) => {
     if(!data.title || !data.lines || data.lines.length < 1) {
         console.log('Invalid data provided');
         console.log(data);
-        callback(new Error('Unable to create list.'));
+        callback(new Error('Unable to createList listLists.'));
         return;
     }
 
@@ -40,7 +40,7 @@ export const create = (event, context, callback) => {
 
         if(error) {
             console.error(error);
-            callback(new Error('Unable to create list.'));
+            callback(new Error('Unable to createList listLists.'));
             return;
         }
 
@@ -54,10 +54,9 @@ export const create = (event, context, callback) => {
     });
 };
 
-export const list = (event, context, callback) => {
+export const listLists = (event, context, callback) => {
 
-    console.log('attempting to scan and filter on userId');
-    console.log(event.cognitoPoolClaims.sub);
+    console.log(`scanning for lists with username=${event.cognitoPoolClaims.sub}`);
 
     const params = {
         TableName: process.env.DYNAMODB_TABLE,
@@ -86,11 +85,10 @@ export const list = (event, context, callback) => {
     });
 };
 
-export const get = (event, context, callback) => {
+export const getList = (event, context, callback) => {
 
 
-    console.log('attempting to query with id');
-    console.log(event.cognitoPoolClaims.sub);
+    console.log(`querying for list with id=${event.path.id} and username=${event.cognitoPoolClaims.sub}`);
 
     const params = {
         TableName: process.env.DYNAMODB_TABLE,
@@ -105,7 +103,7 @@ export const get = (event, context, callback) => {
     dynamoDB.query(params, (error, result) => {
         if(error) {
             console.error(error);
-            callback(new Error('Unable to fetch list.'));
+            callback(new Error('Unable to fetch listLists.'));
             return;
         }
 
@@ -115,7 +113,7 @@ export const get = (event, context, callback) => {
         let response = {
             statusCode: 500,
             headers: corsHeaders
-        }
+        };
 
         if(result.Count === 0) {
             response = {
@@ -139,8 +137,55 @@ export const get = (event, context, callback) => {
     });
 };
 
+export const deleteList = (event, context, callback) => {
+
+    console.log(`deleting list with id=${event.path.id} and userId=${event.cognitoPoolClaims.sub}`);
+
+    const params = {
+        TableName: process.env.DYNAMODB_TABLE,
+        Key: {
+            'id': event.path.id,
+            'userId': event.cognitoPoolClaims.sub
+        }/*,
+        ConditionExpression: 'userId = :uid',
+        ExpressionAttributeValues: {
+            ':uid': event.cognitoPoolClaims.sub
+        }*/
+    }
+
+    dynamoDB.delete(params, (error, result) => {
+        if(error) {
+            console.error(error);
+            callback(new Error('unable to delete list'));
+            return;
+        }
+
+        console.log('delete returned result');
+        console.log(result);
+
+        let response = {
+            statusCode: 500,
+            headers: corsHeaders
+        };
+
+        if(result.Count === 0) {
+            response = {
+                statusCode: 404,
+                headers: corsHeaders
+            };
+        } else {
+            response = {
+                statusCode: 200,
+                headers: corsHeaders
+            };
+        }
+        callback(null, response);
+    });
+};
+
 export default {
-    create,
-    list,
-    get
+    createList,
+    listLists,
+    getList,
+    deleteList
 };

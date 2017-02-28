@@ -56,3 +56,18 @@ export const getListById = (authToken, id, callback) => {
         filterErrors(response, callback);
     });
 };
+
+export const deleteList = (authToken, id, callback) => {
+
+    let headers = new Headers({
+        'Authorization': authToken
+    });
+
+    fetch(`${backendBaseUrl}/lists/${id}`, {
+        method: 'DELETE',
+        headers: headers,
+        mode: 'cors'
+    }).then((response) => response.json()).then(response => {
+        filterErrors(response, callback);
+    });
+};

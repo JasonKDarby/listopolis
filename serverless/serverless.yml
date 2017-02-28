@@ -33,7 +33,7 @@ provider:
 
 functions:
   create:
-    handler: handler.create
+    handler: handler.createList
     events:
       - http:
           path: lists
@@ -43,7 +43,7 @@ functions:
           authorizer:
             arn: ${self:custom.authorizerArn}
   list:
-    handler: handler.list
+    handler: handler.listLists
     events:
       - http:
           path: lists
@@ -53,11 +53,21 @@ functions:
           authorizer:
             arn: ${self:custom.authorizerArn}
   get:
-    handler: handler.get
+    handler: handler.getList
     events:
       - http:
           path: lists/{id}
           method: get
+          integration: lambda
+          cors: true
+          authorizer:
+            arn: ${self:custom.authorizerArn}
+  delete:
+    handler: handler.deleteList
+    events:
+      - http:
+          path: lists/{id}
+          method: delete
           integration: lambda
           cors: true
           authorizer:
