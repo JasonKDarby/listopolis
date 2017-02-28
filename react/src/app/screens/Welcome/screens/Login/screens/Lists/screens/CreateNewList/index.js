@@ -46,8 +46,6 @@ class CreateNewListForm extends MobxReactForm {
         let createRequestData = form.values();
 
         createList(this.user.jwtToken, createRequestData, response => {
-            console.log('response');
-            console.log(response);
             hashHistory.push(`/lists/${response.body.id}`);
         });
     }
