@@ -42,7 +42,8 @@ const loginForm = new LoginForm({ fields }, { plugins });
 
 export default observer(() =>
     <Form onSubmit={loginForm.onSubmit} horizontal>
-        { !loginForm.error ||
+        {
+            loginForm.error &&
             <Row>
                 <Col sm={8} smOffset={2}>
                     <Alert>{loginForm.error}</Alert>

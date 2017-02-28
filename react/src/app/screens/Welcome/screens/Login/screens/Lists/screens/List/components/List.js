@@ -23,7 +23,7 @@ export default class List extends React.Component {
     render() {
         return (
             <div>
-                { !this.state.list || <h1 className="text-center">{this.state.list.title}</h1> }
+                { this.state.list && <h1 className="text-center">{this.state.list.title}</h1> }
                 {
                     this.state.list ?
                         <ol>

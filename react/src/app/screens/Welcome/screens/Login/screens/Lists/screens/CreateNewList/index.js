@@ -122,7 +122,7 @@ export default observer(class extends React.Component {
                                         <Col xs={2} sm={1}>
                                             <ButtonGroup vertical>
                                                 {
-                                                    index === 0 ||
+                                                    index > 0 &&
                                                         <Button type="button" onClick={() => {
                                                             let lines = [];
                                                             createNewListForm.$('lines').fields
@@ -141,7 +141,7 @@ export default observer(class extends React.Component {
                                                         </Button>
                                                 }
                                                 {
-                                                    index === createNewListForm.$('lines').fields.size-1 ||
+                                                    index !== createNewListForm.$('lines').fields.size-1 &&
                                                         <Button type="button" onClick={() => {
                                                             let lines = [];
                                                             createNewListForm.$('lines').fields
@@ -177,7 +177,7 @@ export default observer(class extends React.Component {
                                                 </Button>
                                                 {
                                                     /*if there's only one field we don't want to be able to delete it*/
-                                                    createNewListForm.$('lines').fields.size === 1 ||
+                                                    createNewListForm.$('lines').fields.size !== 1 &&
                                                     <Button type="button" onClick={line.onDel}>
                                                         <Glyphicon glyph="remove" />
                                                     </Button>
