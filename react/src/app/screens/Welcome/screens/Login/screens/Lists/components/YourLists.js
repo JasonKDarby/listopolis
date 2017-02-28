@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 import './YourLists.css';
 import { getLists } from '../../../../../../../shared/ListAPI';
+import LoadingWithBlinkingDots from '../shared/LoadingWithBlinkingDots';
 
 const Title = (
     <ButtonToolbar>
@@ -56,7 +57,7 @@ export default class YourLists extends React.Component {
                             }
                         </ul>
                         : this.state.loading ?
-                            <span>Loading...</span>
+                            <LoadingWithBlinkingDots/>
                             : <span>There's nothing here.</span>
                 }
             </Panel>

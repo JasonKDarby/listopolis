@@ -1,5 +1,7 @@
 import React from 'react';
 import { getListById } from '../../../../../../../../../shared/ListAPI';
+import './List.css';
+import LoadingWithBlinkingDots from '../../../shared/LoadingWithBlinkingDots';
 
 export default class List extends React.Component {
 
@@ -25,10 +27,10 @@ export default class List extends React.Component {
                 {
                     this.state.list ?
                         <ol>
-                            { this.state.list.lines.map((item, index) => <li key={index}>{item}</li>) }
+                            { this.state.list.lines.map((item, index) => <li key={index} className="line">{item}</li>) }
                         </ol>
                         : this.state.loading ?
-                            <span>Loading...</span>
+                            <LoadingWithBlinkingDots/>
                             : <span>There's nothing here.</span>
                 }
             </div>
