@@ -85,144 +85,142 @@ export default observer(class extends React.Component {
 
     render() {
         return (
-            <div>
-                <Form onSubmit={createNewListForm.onSubmit} horizontal>
-                    <Row>
-                        <Col xs={12} className="text-center">
-                            <p><strong>{createNewListForm.error}</strong></p>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col sm={8} smOffset={2} className="text-center">
-                            {
-                                createNewListForm.errorMessages.map(
-                                    (errorMessage, index) =>
-                                        <Alert bsStyle="warning" key={index}>{errorMessage}</Alert>)
-                            }
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col sm={8} smOffset={2}>
-                            <FormGroup validationState={createNewListForm.$('title').isValid ? 'success' : 'error'}>
-                                <ControlLabel>{createNewListForm.$('title').label}</ControlLabel>
-                                <FormControl {...createNewListForm.$('title').bind()} />
-                                <FormControl.Feedback />
-                            </FormGroup>
-                        </Col>
-                    </Row>
-                    <br/>
-                    { createNewListForm.$('lines').map(
-                        (line, index) =>
-                        <Row key={line.key}>
-                            <Col sm={10} smOffset={1}>
-                                <FormGroup validationState={
-                                    line.isValid && line.value.length > 0 ? 'success' : 'error'
-                                }>
-                                    <Row>
-                                        <Col xs={2} sm={1}>
-                                            <ButtonGroup vertical>
-                                                {
-                                                    index > 0 &&
-                                                        <Button type="button" onClick={() => {
-                                                            let lines = [];
-                                                            createNewListForm.$('lines').fields
-                                                                .forEach(field => lines.push(field.value));
-                                                            let line = lines.splice(index-1, 1);
-                                                            lines.splice(index, 0, line);
-                                                            let flattened = [];
-                                                            for(let i = 0; i < lines.length; ++i) {
-                                                                flattened = flattened.concat(lines[i]);
-                                                            }
-                                                            createNewListForm.set({
-                                                                lines: flattened
-                                                            });
-                                                        }}>
-                                                            <Glyphicon glyph="arrow-up"/>
-                                                        </Button>
-                                                }
-                                                {
-                                                    index !== createNewListForm.$('lines').fields.size-1 &&
-                                                        <Button type="button" onClick={() => {
-                                                            let lines = [];
-                                                            createNewListForm.$('lines').fields
-                                                                .forEach(field => lines.push(field.value));
-                                                            let line = lines.splice(index+1, 1);
-                                                            lines.splice(index, 0, line);
-                                                            let flattened = [];
-                                                            for(let i = 0; i < lines.length; ++i) {
-                                                                flattened = flattened.concat(lines[i]);
-                                                            }
-                                                            createNewListForm.set({
-                                                                lines: flattened
-                                                            });
-                                                        }}>
-                                                            <Glyphicon glyph="arrow-down"/>
-                                                        </Button>
-                                                }
-                                            </ButtonGroup>
-                                        </Col>
-                                        <Col xs={8} sm={10}>
-                                            <FormControl
-                                                componentClass="textarea"
-                                                {...line.bind()}
-                                                inputRef={autosize}
-                                            />
-                                            <FormControl.Feedback />
-                                            <HelpBlock>{index}</HelpBlock>
-                                        </Col>
-                                        <Col xs={2} sm={1}>
-                                            <ButtonGroup vertical>
-                                                <Button type="button" onClick={line.onClear}>
-                                                    <Glyphicon glyph="erase" />
-                                                </Button>
-                                                {
-                                                    /*if there's only one field we don't want to be able to delete it*/
-                                                    createNewListForm.$('lines').fields.size !== 1 &&
-                                                    <Button type="button" onClick={line.onDel}>
-                                                        <Glyphicon glyph="remove" />
+            <Form onSubmit={createNewListForm.onSubmit} horizontal>
+                <Row>
+                    <Col xs={12} className="text-center">
+                        <p><strong>{createNewListForm.error}</strong></p>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col sm={8} smOffset={2} className="text-center">
+                        {
+                            createNewListForm.errorMessages.map(
+                                (errorMessage, index) =>
+                                    <Alert bsStyle="warning" key={index}>{errorMessage}</Alert>)
+                        }
+                    </Col>
+                </Row>
+                <Row>
+                    <Col sm={8} smOffset={2}>
+                        <FormGroup validationState={createNewListForm.$('title').isValid ? 'success' : 'error'}>
+                            <ControlLabel>{createNewListForm.$('title').label}</ControlLabel>
+                            <FormControl {...createNewListForm.$('title').bind()} />
+                            <FormControl.Feedback />
+                        </FormGroup>
+                    </Col>
+                </Row>
+                <br/>
+                { createNewListForm.$('lines').map(
+                    (line, index) =>
+                    <Row key={line.key}>
+                        <Col sm={10} smOffset={1}>
+                            <FormGroup validationState={
+                                line.isValid && line.value.length > 0 ? 'success' : 'error'
+                            }>
+                                <Row>
+                                    <Col xs={2} sm={1}>
+                                        <ButtonGroup vertical>
+                                            {
+                                                index > 0 &&
+                                                    <Button type="button" onClick={() => {
+                                                        let lines = [];
+                                                        createNewListForm.$('lines').fields
+                                                            .forEach(field => lines.push(field.value));
+                                                        let line = lines.splice(index-1, 1);
+                                                        lines.splice(index, 0, line);
+                                                        let flattened = [];
+                                                        for(let i = 0; i < lines.length; ++i) {
+                                                            flattened = flattened.concat(lines[i]);
+                                                        }
+                                                        createNewListForm.set({
+                                                            lines: flattened
+                                                        });
+                                                    }}>
+                                                        <Glyphicon glyph="arrow-up"/>
                                                     </Button>
-                                                }
-                                            </ButtonGroup>
-                                        </Col>
-                                    </Row>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Row>
-                                        <Col xs={10} xsOffset={1} className="text-center">
-                                            <Button type="button" bsSize="xsmall" onClick={() => {
-                                                let lines = [];
-                                                createNewListForm.$('lines').fields
-                                                    .forEach(field => lines.push(field.value));
-                                                lines.splice(index+1, 0, '');
-                                                createNewListForm.update({
-                                                    lines: lines
-                                                });
-                                            }}>
-                                                <Glyphicon glyph="plus" />
+                                            }
+                                            {
+                                                index !== createNewListForm.$('lines').fields.size-1 &&
+                                                    <Button type="button" onClick={() => {
+                                                        let lines = [];
+                                                        createNewListForm.$('lines').fields
+                                                            .forEach(field => lines.push(field.value));
+                                                        let line = lines.splice(index+1, 1);
+                                                        lines.splice(index, 0, line);
+                                                        let flattened = [];
+                                                        for(let i = 0; i < lines.length; ++i) {
+                                                            flattened = flattened.concat(lines[i]);
+                                                        }
+                                                        createNewListForm.set({
+                                                            lines: flattened
+                                                        });
+                                                    }}>
+                                                        <Glyphicon glyph="arrow-down"/>
+                                                    </Button>
+                                            }
+                                        </ButtonGroup>
+                                    </Col>
+                                    <Col xs={8} sm={10}>
+                                        <FormControl
+                                            componentClass="textarea"
+                                            {...line.bind()}
+                                            inputRef={autosize}
+                                        />
+                                        <FormControl.Feedback />
+                                        <HelpBlock>{index}</HelpBlock>
+                                    </Col>
+                                    <Col xs={2} sm={1}>
+                                        <ButtonGroup vertical>
+                                            <Button type="button" onClick={line.onClear}>
+                                                <Glyphicon glyph="erase" />
                                             </Button>
-                                        </Col>
-                                    </Row>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-                    )}
-                    <br/>
-                    <Row>
-                        <Col smOffset={1} sm={10}>
-                            <FormGroup className="text-center">
-                                <Button
-                                    type="submit"
-                                    bsSize="large"
-                                    bsStyle="success"
-                                    onClick={createNewListForm.onSubmit}
-                                >
-                                    Create new list
-                                </Button>
+                                            {
+                                                /*if there's only one field we don't want to be able to delete it*/
+                                                createNewListForm.$('lines').fields.size !== 1 &&
+                                                <Button type="button" onClick={line.onDel}>
+                                                    <Glyphicon glyph="remove" />
+                                                </Button>
+                                            }
+                                        </ButtonGroup>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col xs={10} xsOffset={1} className="text-center">
+                                        <Button type="button" bsSize="xsmall" onClick={() => {
+                                            let lines = [];
+                                            createNewListForm.$('lines').fields
+                                                .forEach(field => lines.push(field.value));
+                                            lines.splice(index+1, 0, '');
+                                            createNewListForm.update({
+                                                lines: lines
+                                            });
+                                        }}>
+                                            <Glyphicon glyph="plus" />
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </FormGroup>
                         </Col>
                     </Row>
-                </Form>
-            </div>
+                )}
+                <br/>
+                <Row>
+                    <Col smOffset={1} sm={10}>
+                        <FormGroup className="text-center">
+                            <Button
+                                type="submit"
+                                bsSize="large"
+                                bsStyle="success"
+                                onClick={createNewListForm.onSubmit}
+                            >
+                                Create new list
+                            </Button>
+                        </FormGroup>
+                    </Col>
+                </Row>
+            </Form>
         );
     }
 
