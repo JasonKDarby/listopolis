@@ -81,6 +81,7 @@ export default observer(class extends React.Component {
 
     componentWillMount() {
         createNewListForm.user = this.props.user;
+        createNewListForm.reset();
     }
 
     render() {
