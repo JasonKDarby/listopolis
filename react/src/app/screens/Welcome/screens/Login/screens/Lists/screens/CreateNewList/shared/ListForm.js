@@ -72,4 +72,4 @@ export const createListFormWithInitialState = (values, onSuccessCallback) =>
     new ListForm({ fields, values, labels, placeholders, rules}, { plugins }, onSuccessCallback);
 
 export const createEmptyListForm = (onSuccessCallback) =>
-    createListFormWithInitialState({ 'lines': [''] }, onSuccessCallback);
+    createListFormWithInitialState({ lines: [''] }, onSuccessCallback);
