@@ -28,6 +28,11 @@ const rules = {
 
 class ListForm extends MobxReactForm {
 
+    constructor(settings, { plugins }, onSuccessCallback) {
+        super(settings, { plugins });
+        this.onSuccessCallback = onSuccessCallback;
+    }
+
     errorMessages = [];
 
     onSuccess(form) {
@@ -63,11 +68,8 @@ class ListForm extends MobxReactForm {
     }
 }
 
-export const createListFormWithInitialState = (values, onSuccessCallback) => {
-    let listForm = new ListForm({ fields, values, labels, placeholders, rules}, { plugins });
-    listForm.onSuccessCallback = onSuccessCallback;
-    return listForm;
-};
+export const createListFormWithInitialState = (values, onSuccessCallback) =>
+    new ListForm({ fields, values, labels, placeholders, rules}, { plugins }, onSuccessCallback);
 
 export const createEmptyListForm = (onSuccessCallback) =>
     createListFormWithInitialState({ 'lines': [''] }, onSuccessCallback);
