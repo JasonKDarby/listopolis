@@ -4,7 +4,7 @@ import autosize from 'autosize';
 import { observer } from 'mobx-react';
 import './ListForm.css';
 
-export default observer(({ form }) =>
+export default observer(({ form, submitButtonText }) =>
     <Form onSubmit={form.onSubmit} horizontal>
         <Row>
             <Col xs={12} className="text-center">
@@ -135,7 +135,7 @@ export default observer(({ form }) =>
                         bsStyle="success"
                         onClick={form.onSubmit}
                     >
-                        Create new list
+                        { submitButtonText }
                     </Button>
                 </FormGroup>
             </Col>

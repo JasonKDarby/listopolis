@@ -8,15 +8,52 @@ const corsHeaders = {
     'Access-Control-Allow-Credentials': true
 };
 
+const minTitleLength = 1;
+const maxTitleLength = 140;
+const minTotalLines = 1;
+const maxTotalLines = 140;
+const minLineLength = 1;
+const maxLineLength = 140;
+
+const validRequestData = requestData => {
+    let valid = false;
+
+    if(!requestData.title) {
+        console.log('Title missing.');
+    } else if(!(requestData.title.length >= minTitleLength)) {
+        console.log('Title is not above minimum length.');
+    } else if(!(requestData.title.length <= maxTitleLength)) {
+        console.log('Title is not under or equal to maximum length.');
+    } else if(!(requestData.lines)) {
+        console.log('Lines array is missing.');
+    } else if(!(requestData.lines.length >= minTotalLines)) {
+        console.log('Lines array is not above minimum length.');
+    } else if(!(requestData.lines.length <= maxTotalLines)) {
+        console.log('Lines array is not under or equal to maximum length.');
+    } else {
+        requestData.lines.forEach((line, i) => {
+            if(!(line.length >= minLineLength)) {
+                console.log(`Line[${i}] is not above minimum length.`)
+            } else if(!(line.length <= maxLineLength)) {
+                console.log(`Line[${i}] is not under or equal to maximum length.`)
+            } else {
+                //All checks passed!
+                valid = true;
+            }
+        });
+    }
+    return valid;
+};
+
+
 export const createList = (event, context, callback) => {
 
     const timestamp = new Date().getTime();
     const data = event.body;
 
-    if(!data.title || !data.lines || data.lines.length < 1) {
-        console.log('Invalid data provided');
-        console.log(data);
-        callback(new Error('Unable to createList listLists.'));
+    if(!validRequestData(data)) {
+        console.log('Invalid data provided:', data);
+        callback(new Error('Unable to createList list.'));
         return;
     }
 
@@ -32,31 +69,30 @@ export const createList = (event, context, callback) => {
             createdAt: timestamp,
             updatedAt: timestamp
         }
-    }
+    };
 
     dynamoDB.put(params, (error, result) => {
-        console.log('result of db put');
-        console.log(result);
 
         if(error) {
+
             console.error(error);
             callback(new Error('Unable to createList listLists.'));
-            return;
-        }
+        } else {
 
-        const response = {
-            statusCode: 201,
-            headers: corsHeaders,
-            body: { id: id }
-        }
+            const response = {
+                statusCode: 201,
+                headers: corsHeaders,
+                body: {id: id}
+            };
 
-        callback(null, response);
+            callback(null, response);
+        }
     });
 };
 
 export const listLists = (event, context, callback) => {
 
-    console.log(`scanning for lists with username=${event.cognitoPoolClaims.sub}`);
+    console.log(`Scanning for lists with userId=${event.cognitoPoolClaims.sub}.`);
 
     const params = {
         TableName: process.env.DYNAMODB_TABLE,
@@ -64,31 +100,31 @@ export const listLists = (event, context, callback) => {
         ExpressionAttributeValues: {
             ':uid': event.cognitoPoolClaims.sub
         }
-    }
+    };
 
     dynamoDB.scan(params, (error, result) => {
         if(error) {
+
             console.error(error);
             callback(new Error('Unable to fetch lists.'));
-            return;
+        } else {
+
+            const lists = [];
+            result.Items.forEach((item) => lists.push({id: item.id, title: item.title}));
+
+            const response = {
+                statusCode: 200,
+                headers: corsHeaders,
+                body: lists
+            };
+            callback(null, response);
         }
-
-        const lists = [];
-        result.Items.forEach((item) => lists.push({id: item.id, title: item.title}));
-
-        const response = {
-            statusCode: 200,
-            headers: corsHeaders,
-            body: lists
-        };
-        callback(null, response);
     });
 };
 
 export const getList = (event, context, callback) => {
 
-
-    console.log(`querying for list with id=${event.path.id} and username=${event.cognitoPoolClaims.sub}`);
+    console.log(`Querying for list with id=${event.path.id} and userId=${event.cognitoPoolClaims.sub}.`);
 
     const params = {
         TableName: process.env.DYNAMODB_TABLE,
@@ -98,75 +134,117 @@ export const getList = (event, context, callback) => {
             ':uid': event.cognitoPoolClaims.sub,
             ':id': event.path.id
         }
-    }
+    };
 
     dynamoDB.query(params, (error, result) => {
         if(error) {
+
             console.error(error);
-            callback(new Error('Unable to fetch listLists.'));
-            return;
-        }
-
-        console.log('query returned result');
-        console.log(result);
-
-        let response = {
-            statusCode: 500,
-            headers: corsHeaders
-        };
-
-        if(result.Count === 0) {
-            response = {
-                statusCode: 404,
-                headers: corsHeaders
-            }
+            callback(new Error('Unable to fetch list.'));
         } else {
-            const item = result.Items[0];
-            const list = {
-                id: item.id,
-                title: item.title,
-                lines: item.lines
-            };
-            response = {
-                statusCode: 200,
-                headers: corsHeaders,
-                body: list
-            };
+
+            console.log('Query returned result:', result);
+
+            let response;
+
+            if (result.Count === 0) {
+                response = {
+                    statusCode: 404,
+                    headers: corsHeaders
+                }
+            } else {
+                const item = result.Items[0];
+                const list = {
+                    id: item.id,
+                    title: item.title,
+                    lines: item.lines
+                };
+                response = {
+                    statusCode: 200,
+                    headers: corsHeaders,
+                    body: list
+                };
+            }
+
+            if(response) callback(null, response);
+            else callback(new Error('Error while processing result.'))
         }
-        callback(null, response);
     });
 };
 
-export const deleteList = (event, context, callback) => {
+export const updateList = (event, context, callback) => {
 
-    console.log(`deleting list with id=${event.path.id} and userId=${event.cognitoPoolClaims.sub}`);
+    console.log(`Updating list with id=${event.path.id} and userId=${event.cognitoPoolClaims.sub}.`);
+
+    const timestamp = new Date().getTime();
+    const data = event.body;
+
+    if(!validRequestData(data)) {
+        console.log('Invalid data provided:', data);
+        callback(new Error('Unable to createList listLists.'));
+        return;
+    }
 
     const params = {
         TableName: process.env.DYNAMODB_TABLE,
         Key: {
             'id': event.path.id,
             'userId': event.cognitoPoolClaims.sub
-        }/*,
-        ConditionExpression: 'userId = :uid',
+        },
+        UpdateExpression: 'SET title = :title, #lines = :lines, updatedAt = :updatedAt',
+        ExpressionAttributeNames: {
+            '#lines': 'lines'
+        },
         ExpressionAttributeValues: {
-            ':uid': event.cognitoPoolClaims.sub
-        }*/
-    }
+            ':title': data.title,
+            ':lines': data.lines,
+            ':updatedAt': timestamp
+        },
+        ReturnValues: 'UPDATED_NEW'
+    };
 
-    dynamoDB.delete(params, (error, result) => {
+    dynamoDB.update(params, (error, result) => {
         if(error) {
+
             console.error(error);
-            callback(new Error('unable to delete list'));
+            callback(new Error('Unable to update list'));
             return;
         }
 
-        console.log('delete returned result');
-        console.log(result);
+        console.log('Update returned result:', result);
 
         let response = {
-            statusCode: 500,
+            statusCode: 200,
             headers: corsHeaders
         };
+
+        callback(null, response);
+    });
+};
+
+export const deleteList = (event, context, callback) => {
+
+    console.log(`Deleting list with id=${event.path.id} and userId=${event.cognitoPoolClaims.sub}.`);
+
+    const params = {
+        TableName: process.env.DYNAMODB_TABLE,
+        Key: {
+            'id': event.path.id,
+            'userId': event.cognitoPoolClaims.sub
+        }
+    };
+
+    dynamoDB.delete(params, (error, result) => {
+        if(error) {
+
+            console.error(error);
+            callback(new Error('Unable to delete list.'));
+            return;
+        }
+
+        console.log('Delete returned result:', result);
+
+        let response;
 
         if(result.Count === 0) {
             response = {
@@ -179,6 +257,7 @@ export const deleteList = (event, context, callback) => {
                 headers: corsHeaders
             };
         }
+
         callback(null, response);
     });
 };
@@ -187,5 +266,6 @@ export default {
     createList,
     listLists,
     getList,
+    updateList,
     deleteList
 };

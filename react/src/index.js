@@ -7,6 +7,7 @@ import AdminCreatedAccountCompletion from './app/screens/Welcome/screens/Login/s
 import Lists from './app/screens/Welcome/screens/Login/screens/Lists/index';
 import List from './app/screens/Welcome/screens/Login/screens/Lists/screens/List/index';
 import CreateNewList from './app/screens/Welcome/screens/Login/screens/Lists/screens/CreateNewList/index';
+import UpdateList from './app/screens/Welcome/screens/Login/screens/Lists/screens/List/screens/UpdateList/index';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
@@ -39,6 +40,7 @@ ReactDOM.render((
             >
                 <Route path="/lists" component={Lists} />
                 <Route path="/lists/:id" component={List} />
+                <Route path="/lists/:id/update" component={UpdateList} />
                 <Route path="/createNewList" component={CreateNewList} />
             </Route>
         </Route>

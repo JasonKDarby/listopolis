@@ -15,7 +15,7 @@ export default class extends React.Component {
     }
 
     render() {
-        return (<ListForm form={this.createNewListForm}/>);
+        return (<ListForm form={this.createNewListForm} submitButtonText="Create new list" />);
     }
 
 }

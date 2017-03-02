@@ -14,8 +14,7 @@ export default ({ params: { id }, user, history }) => (
         </Row>
         <Row>
             <Col sm={8} smOffset={2} className="text-center">
-                {/*TODO: This just goes to / for now, it'll be changed to the edit list path*/}
-                <Edit history={history} pushPath={'/'} />
+                <Edit history={history} id={id} pushPath={`/lists/${id}/update`} />
                 {' '}
                 <Delete onClick={() => deleteList(user.jwtToken, id, () => history.push('/'))} />
             </Col>

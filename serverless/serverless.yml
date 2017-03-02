@@ -62,6 +62,16 @@ functions:
           cors: true
           authorizer:
             arn: ${self:custom.authorizerArn}
+  update:
+    handler: handler.updateList
+    events:
+      - http:
+          path: lists/{id}
+          method: put
+          integration: lambda
+          cors: true
+          authorizer:
+            arn: ${self:custom.authorizerArn}
   delete:
     handler: handler.deleteList
     events:
