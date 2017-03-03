@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './handler.js',
+    entry: './handlers/index.js',
     target: 'node',
     module: {
         loaders: [{

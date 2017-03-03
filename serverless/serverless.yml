@@ -5,10 +5,6 @@ service: listopolis-0
 plugins:
   - serverless-webpack
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
-
 provider:
   name: aws
   runtime: nodejs4.3
@@ -33,7 +29,7 @@ provider:
 
 functions:
   create:
-    handler: handler.createList
+    handler: handlers/index.create
     events:
       - http:
           path: lists
@@ -43,7 +39,7 @@ functions:
           authorizer:
             arn: ${self:custom.authorizerArn}
   list:
-    handler: handler.listLists
+    handler: handlers/index.list
     events:
       - http:
           path: lists
@@ -53,7 +49,7 @@ functions:
           authorizer:
             arn: ${self:custom.authorizerArn}
   get:
-    handler: handler.getList
+    handler: handlers/index.get
     events:
       - http:
           path: lists/{id}
@@ -63,7 +59,7 @@ functions:
           authorizer:
             arn: ${self:custom.authorizerArn}
   update:
-    handler: handler.updateList
+    handler: handlers/index.update
     events:
       - http:
           path: lists/{id}
@@ -73,7 +69,7 @@ functions:
           authorizer:
             arn: ${self:custom.authorizerArn}
   delete:
-    handler: handler.deleteList
+    handler: handlers/index.deleteHandler
     events:
       - http:
           path: lists/{id}
