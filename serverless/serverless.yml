@@ -1,6 +1,6 @@
 custom: ${file(./env.yml)}
 
-service: listopolis-0
+service: ${self:custom.serviceName}
 
 plugins:
   - serverless-webpack
@@ -104,15 +104,3 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
-        LocalSecondaryIndexes:
-          -
-            IndexName: 'userId-index'
-            KeySchema:
-              -
-                AttributeName: id
-                KeyType: HASH
-              -
-                AttributeName: userId
-                KeyType: RANGE
-            Projection:
-              ProjectionType: ALL
